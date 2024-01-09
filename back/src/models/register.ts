@@ -58,7 +58,6 @@ registerSchema.pre<IRegister>("save", async function (next) {
 });
 
 // Vérifier le mot de passe
-
 registerSchema.methods.checkPassword = async function (
   password: string
 ): Promise<boolean> {

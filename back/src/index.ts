@@ -2,8 +2,10 @@ import express, { Application, Request, NextFunction } from "express";
 
 import connectDB from "./config/db";
 import registerRoutes from "./routes/register";
+import authRoutes from "./routes/auth";
 
 const app: Application = express();
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -15,5 +17,6 @@ app.use((req: Request, _, next: NextFunction) => {
 });
 
 app.use("/register", registerRoutes);
+app.use("/login", authRoutes);
 
 app.listen(4900);

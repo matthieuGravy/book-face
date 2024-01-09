@@ -5,6 +5,7 @@ import registerRoutes from "./routes/register";
 
 const app: Application = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 connectDB();
 

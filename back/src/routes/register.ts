@@ -16,10 +16,22 @@ router.get("/", async (_, res: Response) => {
 });
 
 router.post("/", async (req: Request, res: Response) => {
-  const { email } = req.body;
+  const { username, password, email } = req.body;
+
+  if (!username || !password || !email) {
+    res.status(400).json({
+      error:
+        "Veuillez fournir tous les champs nécessaires (username, password, email).",
+    });
+    return;
+  }
 
   try {
-    const register = await registerService.createRegister(email);
+    const register = await registerService.createRegister(
+      username,
+      password,
+      email
+    );
     res.json(register);
   } catch (err) {
     console.error(err instanceof Error ? err.message : err);

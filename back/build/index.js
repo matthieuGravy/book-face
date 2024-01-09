@@ -8,6 +8,7 @@ const db_1 = __importDefault(require("./config/db"));
 const register_1 = __importDefault(require("./routes/register"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
+app.use(express_1.default.urlencoded({ extended: true }));
 (0, db_1.default)();
 app.use((req, _, next) => {
     console.log(req.url);

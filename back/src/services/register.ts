@@ -2,8 +2,14 @@ import Register from "../models/register";
 import { IRegister } from "../models/register";
 
 class RegisterService {
-  async createRegister(email: string): Promise<IRegister> {
+  async createRegister(
+    username: string,
+    password: string,
+    email: string
+  ): Promise<IRegister> {
     const newRegister = new Register({
+      username,
+      password,
       email,
     });
 

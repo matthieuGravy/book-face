@@ -16,5 +16,5 @@ app.use((req, _, next) => {
     next();
 });
 app.use("/register", register_1.default);
-app.use("/auth", auth_1.default);
+app.use("/login", auth_1.default);
 app.listen(4900);

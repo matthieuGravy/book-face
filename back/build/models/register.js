@@ -52,25 +52,35 @@ const registerSchema = new mongoose_1.Schema({
 }, {
     collection: "register",
 });
-registerSchema.pre("save", function (next) {
+registerSchema.pre("save", async function (next) {
     const user = this;
     if (!user.isModified("password")) {
         return next();
     }
-    bcrypt.hash(user.password, 10, (err, hashedPassword) => {
-        if (err) {
-            return next(err);
-        }
+    try {
+        const hashedPassword = await bcrypt.hash(user.password, 10);
         user.password = hashedPassword;
+        console.log("Password hashed successfully:", hashedPassword);
         next();
-    });
-}); // Ajout de l'accolade fermante ici
+    }
+    catch (err) {
+        console.error("Error hashing password:", err);
+        next(err);
+    }
+});
 registerSchema.methods.checkPassword = async function (password) {
     const user = this;
     try {
-        return await bcrypt.compare(password, user.password);
+        console.log("Entered checkPassword method");
+        console.log("Provided password:", password);
+        console.log("Stored hashed password:", user.hashedPassword);
+        const hashedPassword = user.hashedPassword;
+        const same = await bcrypt.compare(password, hashedPassword);
+        console.log("Password comparison result:", same);
+        return same;
     }
     catch (err) {
+        console.error("Error in checkPassword:", err);
         throw err;
     }
 };

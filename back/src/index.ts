@@ -17,6 +17,6 @@ app.use((req: Request, _, next: NextFunction) => {
 });
 
 app.use("/register", registerRoutes);
-app.use("/auth", authRoutes);
+app.use("/login", authRoutes);
 
 app.listen(4900);

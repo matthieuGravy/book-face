@@ -1,19 +1,19 @@
 import express, { Application, Request, NextFunction } from "express";
-const mongoose = require("mongoose");
 
-export const app: Application = express();
+import connectDB from "./config/db";
+import registerRoutes from "./routes/register";
 
-const connectDB = async () => {
-  try {
-    await mongoose.connect("");
-  } catch (err) {
-    console.log(err);
-  }
-};
+const app: Application = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+connectDB();
 
 app.use((req: Request, _, next: NextFunction) => {
   console.log(req.url);
   next();
 });
+
+app.use("/register", registerRoutes);
 
 app.listen(4900);

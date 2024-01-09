@@ -1,12 +1,15 @@
 import mongoose, { Schema, Document } from "mongoose";
+import { NextFunction } from "express";
 const bcrypt = require("bcrypt");
 
-// Définir les types de l'interface d'un document de la collection "register"
 export interface IRegister extends Document {
   username: string;
   password: string;
   email: string;
+  hashedPassword: string;
   registerDate: Date;
+  checkPassword: (password: string) => Promise<boolean>;
+  isModified: (path: string) => boolean;
 }
 
 const registerSchema = new Schema<IRegister>(
@@ -19,12 +22,16 @@ const registerSchema = new Schema<IRegister>(
     password: {
       type: String,
       required: true,
-      select: false, // Ne pas renvoyer le mot de passe par défaut
+      select: false,
     },
     email: {
       type: String,
       required: true,
       unique: true,
+    },
+    hashedPassword: {
+      type: String,
+      select: false,
     },
     registerDate: {
       type: Date,
@@ -36,33 +43,26 @@ const registerSchema = new Schema<IRegister>(
   }
 );
 
-// Avant de sauvegarder un document, hash le mot de passe
-registerSchema.pre<IRegister>("save", async function (next) {
-  const register = this;
-
-  if (!register.isModified("password")) {
+registerSchema.pre<IRegister>("save", async function (next: NextFunction) {
+  if (!this.isModified("password")) {
     return next();
   }
 
   try {
-    const hashedPassword = await bcrypt.hash(register.password, 10);
-    register.password = hashedPassword;
+    const hashedPassword = await bcrypt.hash(this.password, 10);
+    this.hashedPassword = hashedPassword;
     next();
   } catch (err) {
-    if (err instanceof Error) {
-      return next(err);
-    } else {
-      return next(new Error(String(err)));
-    }
+    next(err);
   }
 });
 
-// Vérifier le mot de passe
 registerSchema.methods.checkPassword = async function (
   password: string
 ): Promise<boolean> {
+  const register = this as IRegister;
   try {
-    const same = await bcrypt.compare(password, this.password);
+    const same = await bcrypt.compare(password, register.hashedPassword);
     return same;
   } catch (err) {
     throw err;

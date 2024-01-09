@@ -34,12 +34,16 @@ const registerSchema = new mongoose_1.Schema({
     password: {
         type: String,
         required: true,
-        select: false, // Ne pas renvoyer le mot de passe par défaut
+        select: false,
     },
     email: {
         type: String,
         required: true,
         unique: true,
+    },
+    hashedPassword: {
+        type: String,
+        select: false,
     },
     registerDate: {
         type: Date,
@@ -48,30 +52,23 @@ const registerSchema = new mongoose_1.Schema({
 }, {
     collection: "register",
 });
-// Avant de sauvegarder un document, hash le mot de passe
 registerSchema.pre("save", async function (next) {
-    const register = this;
-    if (!register.isModified("password")) {
+    if (!this.isModified("password")) {
         return next();
     }
     try {
-        const hashedPassword = await bcrypt.hash(register.password, 10);
-        register.password = hashedPassword;
+        const hashedPassword = await bcrypt.hash(this.password, 10);
+        this.hashedPassword = hashedPassword;
         next();
     }
     catch (err) {
-        if (err instanceof Error) {
-            return next(err);
-        }
-        else {
-            return next(new Error(String(err)));
-        }
+        next(err);
     }
 });
-// Vérifier le mot de passe
 registerSchema.methods.checkPassword = async function (password) {
+    const register = this;
     try {
-        const same = await bcrypt.compare(password, this.password);
+        const same = await bcrypt.compare(password, register.hashedPassword);
         return same;
     }
     catch (err) {

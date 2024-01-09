@@ -1,0 +1,49 @@
+# macOS
+.DS_Store
+
+# Node.js
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# pnpm
+pnpm-lock.yaml
+pnpm-workspace.yaml
+.pnpm/
+
+# Visual Studio Code
+.vscode/
+.history/
+
+# MongoDB
+data/
+
+# Environment variables
+.env
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+
+# User-specific files
+.DS_Store
+Desktop.ini
+Thumbs.db

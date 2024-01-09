@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 //Mongoose et dotenv
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
@@ -12,4 +13,4 @@ const connectDB = async () => {
         console.log(err);
     }
 };
-module.exports = connectDB;
+exports.default = connectDB;

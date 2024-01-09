@@ -6,9 +6,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const db_1 = __importDefault(require("./config/db"));
 const app = (0, express_1.default)();
+app.use(express_1.default.json());
 (0, db_1.default)();
 app.use((req, _, next) => {
     console.log(req.url);
     next();
 });
+app.use(express_1.default.json());
 app.listen(4900);

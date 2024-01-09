@@ -4,37 +4,28 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const register_1 = __importDefault(require("../models/register"));
+const register_1 = __importDefault(require("../services/register"));
 const router = express_1.default.Router();
-// Récupérer tous les utilisateurs
+const registerService = new register_1.default();
 router.get("/", async (_, res) => {
     try {
-        const registers = await register_1.default.find();
+        const registers = await registerService.getAllRegisters();
         res.json(registers);
     }
     catch (err) {
-        if (err instanceof Error) {
-            console.error(err.message);
-            console.error(err.stack);
-        }
-        res.status(500).send("Erreur serveur");
+        console.error(err instanceof Error ? err.message : err);
+        res.status(500).send("Internal Server Error");
     }
 });
-// Créer un nouvel utilisateur
 router.post("/", async (req, res) => {
     const { email } = req.body;
     try {
-        const newRegister = new register_1.default({
-            email,
-        });
-        const register = await newRegister.save();
+        const register = await registerService.createRegister(email);
         res.json(register);
     }
     catch (err) {
-        if (err instanceof Error) {
-            console.error(err.message);
-            console.error(err.stack);
-        }
+        console.error(err instanceof Error ? err.message : err);
+        res.status(500).send("Internal Server Error");
     }
 });
 exports.default = router;

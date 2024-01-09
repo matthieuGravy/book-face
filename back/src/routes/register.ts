@@ -1,39 +1,29 @@
 import express, { Router, Request, Response } from "express";
 
-import Register from "../models/register";
+import RegisterService from "../services/register";
 
 const router: Router = express.Router();
+const registerService = new RegisterService();
 
-// Récupérer tous les utilisateurs
 router.get("/", async (_, res: Response) => {
   try {
-    const registers = await Register.find();
+    const registers = await registerService.getAllRegisters();
     res.json(registers);
   } catch (err) {
-    if (err instanceof Error) {
-      console.error(err.message);
-      console.error(err.stack);
-    }
-    res.status(500).send("Erreur serveur");
+    console.error(err instanceof Error ? err.message : err);
+    res.status(500).send("Internal Server Error");
   }
 });
 
-// Créer un nouvel utilisateur
 router.post("/", async (req: Request, res: Response) => {
   const { email } = req.body;
 
   try {
-    const newRegister = new Register({
-      email,
-    });
-
-    const register = await newRegister.save();
+    const register = await registerService.createRegister(email);
     res.json(register);
   } catch (err) {
-    if (err instanceof Error) {
-      console.error(err.message);
-      console.error(err.stack);
-    }
+    console.error(err instanceof Error ? err.message : err);
+    res.status(500).send("Internal Server Error");
   }
 });
 

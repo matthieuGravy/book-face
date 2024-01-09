@@ -1,7 +1,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 // Définir les types de l'interface d'un document de la collection "register"
-interface IRegister extends Document {
+export interface IRegister extends Document {
   email: string;
   registerDate: Date;
 }

@@ -58,7 +58,7 @@ registerSchema.pre<IRegister>("save", async function (next) {
 });
 
 // Vérifier le mot de passe
-/*
+
 registerSchema.methods.checkPassword = async function (
   password: string
 ): Promise<boolean> {
@@ -69,7 +69,7 @@ registerSchema.methods.checkPassword = async function (
     throw err;
   }
 };
-*/
+
 const Register = mongoose.model<IRegister>("Register", registerSchema);
 
 export default Register;

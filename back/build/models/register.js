@@ -69,17 +69,14 @@ registerSchema.pre("save", async function (next) {
     }
 });
 // Vérifier le mot de passe
-/*
-registerSchema.methods.checkPassword = async function (
-  password: string
-): Promise<boolean> {
-  try {
-    const same = await bcrypt.compare(password, this.password);
-    return same;
-  } catch (err) {
-    throw err;
-  }
+registerSchema.methods.checkPassword = async function (password) {
+    try {
+        const same = await bcrypt.compare(password, this.password);
+        return same;
+    }
+    catch (err) {
+        throw err;
+    }
 };
-*/
 const Register = mongoose_1.default.model("Register", registerSchema);
 exports.default = Register;

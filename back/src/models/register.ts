@@ -72,7 +72,6 @@ registerSchema.methods.checkPassword = async function (password: string) {
     return same;
   } catch (err) {
     console.error("Error in checkPassword:", err);
-
     throw err;
   }
 };

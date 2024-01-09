@@ -1,5 +1,5 @@
 import mongoose, { Schema, Document } from "mongoose";
-import { NextFunction } from "express";
+
 const bcrypt = require("bcrypt");
 
 export interface IRegister extends Document {
@@ -42,28 +42,27 @@ const registerSchema = new Schema<IRegister>(
     collection: "register",
   }
 );
+registerSchema.pre("save", function (next: Function) {
+  const user = this as IRegister;
 
-registerSchema.pre<IRegister>("save", async function (next: NextFunction) {
-  if (!this.isModified("password")) {
+  if (!user.isModified("password")) {
     return next();
   }
 
-  try {
-    const hashedPassword = await bcrypt.hash(this.password, 10);
-    this.hashedPassword = hashedPassword;
-    next();
-  } catch (err) {
-    next(err);
-  }
-});
+  bcrypt.hash(user.password, 10, (err: Error, hashedPassword: string) => {
+    if (err) {
+      return next(err);
+    }
 
-registerSchema.methods.checkPassword = async function (
-  password: string
-): Promise<boolean> {
-  const register = this as IRegister;
+    user.password = hashedPassword;
+    next();
+  });
+}); // Ajout de l'accolade fermante ici
+
+registerSchema.methods.checkPassword = async function (password: string) {
+  const user = this as IRegister;
   try {
-    const same = await bcrypt.compare(password, register.hashedPassword);
-    return same;
+    return await bcrypt.compare(password, user.password);
   } catch (err) {
     throw err;
   }

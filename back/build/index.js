@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const db_1 = __importDefault(require("./config/db"));
 const register_1 = __importDefault(require("./routes/register"));
+const auth_1 = __importDefault(require("./routes/auth"));
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
@@ -15,4 +16,5 @@ app.use((req, _, next) => {
     next();
 });
 app.use("/register", register_1.default);
+app.use("/auth", auth_1.default);
 app.listen(4900);

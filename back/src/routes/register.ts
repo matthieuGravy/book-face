@@ -5,7 +5,7 @@ import Register from "../models/register";
 const router: Router = express.Router();
 
 // Récupérer tous les utilisateurs
-router.get("/register", async (_, res: Response) => {
+router.get("/", async (_, res: Response) => {
   try {
     const registers = await Register.find();
     res.json(registers);
@@ -19,7 +19,7 @@ router.get("/register", async (_, res: Response) => {
 });
 
 // Créer un nouvel utilisateur
-router.post("/register", async (req: Request, res: Response) => {
+router.post("/", async (req: Request, res: Response) => {
   const { email } = req.body;
 
   try {

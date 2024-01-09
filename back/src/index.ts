@@ -1,6 +1,7 @@
 import express, { Application, Request, NextFunction } from "express";
 
 import connectDB from "./config/db";
+import registerRoutes from "./routes/register";
 
 const app: Application = express();
 app.use(express.json());
@@ -12,6 +13,6 @@ app.use((req: Request, _, next: NextFunction) => {
   next();
 });
 
-app.use(express.json());
+app.use("/register", registerRoutes);
 
 app.listen(4900);

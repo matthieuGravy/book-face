@@ -7,7 +7,7 @@ const express_1 = __importDefault(require("express"));
 const register_1 = __importDefault(require("../models/register"));
 const router = express_1.default.Router();
 // Récupérer tous les utilisateurs
-router.get("/register", async (_, res) => {
+router.get("/", async (_, res) => {
     try {
         const registers = await register_1.default.find();
         res.json(registers);
@@ -21,7 +21,7 @@ router.get("/register", async (_, res) => {
     }
 });
 // Créer un nouvel utilisateur
-router.post("/register", async (req, res) => {
+router.post("/", async (req, res) => {
     const { email } = req.body;
     try {
         const newRegister = new register_1.default({

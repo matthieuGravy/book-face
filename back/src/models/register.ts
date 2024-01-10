@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document, CallbackError } from "mongoose";
+import { generateKeyPair, SignJWT, jwtVerify } from "jose";
 
 const bcrypt = require("bcrypt");
 
@@ -10,6 +11,7 @@ export interface IRegister extends Document {
   registerDate: Date;
   checkPassword: (password: string) => Promise<boolean>;
   isModified: (path: string) => boolean;
+  generateJWT: () => Promise<string>;
 }
 
 const registerSchema = new Schema<IRegister>(
@@ -42,6 +44,42 @@ const registerSchema = new Schema<IRegister>(
     collection: "register",
   }
 );
+// Générer une nouvelle paire de clés lors du démarrage de l'application
+let privateKey: any;
+let publicKey: any;
+
+generateKeyPair("RS256").then((keys) => {
+  privateKey = keys.privateKey;
+  publicKey = keys.publicKey;
+});
+
+registerSchema.methods.generateJWT = async function () {
+  if (!privateKey) {
+    throw new Error("Private key is not set");
+  }
+
+  const jwt = await new SignJWT({ sub: this._id, username: this.username })
+    .setProtectedHeader({ alg: "RS256" })
+    .setIssuedAt()
+    .sign(privateKey);
+  return jwt;
+};
+
+registerSchema.statics.verifyJWT = async function (jwt: string) {
+  if (!publicKey) {
+    throw new Error("Public key is not set");
+  }
+
+  try {
+    const { payload } = await jwtVerify(jwt, publicKey);
+    console.log("JWT payload:", payload);
+    return JSON.parse(payload.toString());
+  } catch (err) {
+    console.error("Invalid JWT:", err);
+    return null;
+  }
+};
+
 registerSchema.pre("save", async function (next) {
   const user = this as IRegister;
 

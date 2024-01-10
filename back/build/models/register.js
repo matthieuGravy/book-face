@@ -54,12 +54,13 @@ const registerSchema = new mongoose_1.Schema({
 });
 registerSchema.pre("save", async function (next) {
     const user = this;
+    // Only hash the password if it has been modified or is new
     if (!user.isModified("password")) {
         return next();
     }
     try {
         const hashedPassword = await bcrypt.hash(user.password, 10);
-        user.password = hashedPassword;
+        user.hashedPassword = hashedPassword; // Update hashedPassword field
         console.log("Password hashed successfully:", hashedPassword);
         next();
     }

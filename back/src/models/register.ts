@@ -1,4 +1,4 @@
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Schema, Document, CallbackError } from "mongoose";
 
 const bcrypt = require("bcrypt");
 
@@ -42,21 +42,22 @@ const registerSchema = new Schema<IRegister>(
     collection: "register",
   }
 );
-registerSchema.pre("save", async function (next: Function) {
+registerSchema.pre("save", async function (next) {
   const user = this as IRegister;
 
+  // Only hash the password if it has been modified or is new
   if (!user.isModified("password")) {
     return next();
   }
 
   try {
     const hashedPassword = await bcrypt.hash(user.password, 10);
-    user.password = hashedPassword;
+    user.hashedPassword = hashedPassword; // Update hashedPassword field
     console.log("Password hashed successfully:", hashedPassword);
     next();
-  } catch (err) {
+  } catch (err: any) {
     console.error("Error hashing password:", err);
-    next(err);
+    next(err as CallbackError);
   }
 });
 

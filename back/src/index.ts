@@ -3,6 +3,7 @@ import express, { Application, Request, NextFunction } from "express";
 import connectDB from "./config/db";
 import registerRoutes from "./routes/register";
 import authRoutes from "./routes/auth";
+import logoutRoutes from "./routes/logout";
 
 const app: Application = express();
 
@@ -18,5 +19,6 @@ app.use((req: Request, _, next: NextFunction) => {
 
 app.use("/register", registerRoutes);
 app.use("/login", authRoutes);
+app.use("/logout", logoutRoutes);
 
 app.listen(4900);

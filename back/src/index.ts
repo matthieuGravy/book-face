@@ -1,4 +1,4 @@
-import express, { Application, Request, NextFunction } from "express";
+import express, { Application } from "express";
 
 import connectDB from "./config/db";
 import registerRoutes from "./routes/register";
@@ -12,11 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 
 connectDB();
 
-app.use((req: Request, _, next: NextFunction) => {
-  console.log(req.url);
-  next();
-});
-
+// routes pour data front
 app.use("/register", registerRoutes);
 app.use("/login", authRoutes);
 app.use("/logout", logoutRoutes);

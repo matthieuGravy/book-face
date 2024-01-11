@@ -18,5 +18,9 @@ class RegisterService {
     async getAllRegisters() {
         return await register_1.default.find();
     }
+    async deleteUser(id) {
+        // Changez le type de retour à Promise<IRegister | null>
+        return await register_1.default.findByIdAndDelete(id);
+    }
 }
 exports.default = RegisterService;

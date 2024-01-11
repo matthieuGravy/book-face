@@ -17,6 +17,17 @@ router.get("/", async (_, res) => {
         res.status(500).send("Internal Server Error");
     }
 });
+//supprimer un user
+router.delete("/:id", async (req, res) => {
+    const { id } = req.params;
+    const deletedUser = await registerService.deleteUser(id); // Utilisez registerService au lieu de userService
+    if (deletedUser) {
+        res.json({ deleted: true });
+    }
+    else {
+        res.status(404).send("User not found");
+    }
+});
 router.post("/", async (req, res) => {
     const { username, password, email } = req.body;
     if (!username || !password || !email) {

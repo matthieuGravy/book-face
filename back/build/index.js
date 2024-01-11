@@ -12,10 +12,7 @@ const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 (0, db_1.default)();
-app.use((req, _, next) => {
-    console.log(req.url);
-    next();
-});
+// routes pour data front
 app.use("/register", register_1.default);
 app.use("/login", auth_1.default);
 app.use("/logout", logout_1.default);

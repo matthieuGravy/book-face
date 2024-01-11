@@ -14,6 +14,7 @@ class RegisterService {
     });
     const jwt = await newRegister.generateJWT();
     newRegister.jwt = jwt;
+
     return await newRegister.save();
   }
 

@@ -15,7 +15,8 @@ class AuthService {
             const passwordMatch = await register.checkPassword(password);
             if (passwordMatch) {
                 console.log("User logged in successfully:", email);
-                return register;
+                const jwt = await register.generateJWT(); // Générer un JWT pour l'utilisateur
+                return { user: register, jwt }; // Retourner l'utilisateur et le JWT
             }
             else {
                 console.log("Invalid password for user:", email);

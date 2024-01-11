@@ -11,6 +11,7 @@ export interface IRegister extends Document {
   registerDate: Date;
   checkPassword: (password: string) => Promise<boolean>;
   isModified: (path: string) => boolean;
+  verifyJWT(jwt: string): Promise<any>;
   generateJWT: () => Promise<string>;
   jwt: string;
 }
@@ -60,10 +61,15 @@ registerSchema.methods.generateJWT = async function () {
   if (!privateKey) {
     throw new Error("Private key is not set");
   }
-
-  const jwt = await new SignJWT({ sub: this._id, username: this.username })
+  // Générer un JWT avec l'identifiant et l'email
+  const jwt = await new SignJWT({ sub: this._id, email: this.email })
+    // Définir l'en-tête protégé du JWT avec l'algorithme RS256
     .setProtectedHeader({ alg: "RS256" })
+    // Définir la date d'expiration du JWT à 3 minutes
+    .setExpirationTime("3m")
+    // Définir la date d'émission du JWT à maintenant
     .setIssuedAt()
+    // Signer le JWT avec la clé privée
     .sign(privateKey);
   return jwt;
 };
@@ -77,8 +83,9 @@ registerSchema.statics.verifyJWT = async function (jwt: string) {
   }
 
   try {
+    // Vérifier la signature du JWT avec la clé publique et récupérer le payload du JWT (sub et username)
     const { payload } = await jwtVerify(jwt, publicKey);
-    console.log("JWT payload:", payload);
+    // convertit le payload du JWT en objet JavaScript et le renvoie
     return JSON.parse(payload.toString());
   } catch (err) {
     console.error("Invalid JWT:", err);
@@ -89,7 +96,7 @@ registerSchema.statics.verifyJWT = async function (jwt: string) {
 registerSchema.pre("save", async function (next) {
   const user = this as IRegister;
 
-  // Only hash the password if it has been modified or is new
+  // Hash password only if it has been modified or is new
   if (!user.isModified("password")) {
     return next();
   }

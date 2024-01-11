@@ -12,6 +12,7 @@ export interface IRegister extends Document {
   checkPassword: (password: string) => Promise<boolean>;
   isModified: (path: string) => boolean;
   generateJWT: () => Promise<string>;
+  jwt: string;
 }
 
 const registerSchema = new Schema<IRegister>(
@@ -39,11 +40,13 @@ const registerSchema = new Schema<IRegister>(
       type: Date,
       default: Date.now,
     },
+    jwt: String,
   },
   {
     collection: "register",
   }
 );
+
 // Générer une nouvelle paire de clés lors du démarrage de l'application
 let privateKey: any;
 let publicKey: any;
@@ -68,6 +71,9 @@ registerSchema.methods.generateJWT = async function () {
 registerSchema.statics.verifyJWT = async function (jwt: string) {
   if (!publicKey) {
     throw new Error("Public key is not set");
+  }
+  if (!jwt) {
+    throw new Error("JWT is not provided");
   }
 
   try {

@@ -50,6 +50,7 @@ const registerSchema = new mongoose_1.Schema({
         type: Date,
         default: Date.now,
     },
+    jwt: String,
 }, {
     collection: "register",
 });
@@ -73,6 +74,9 @@ registerSchema.methods.generateJWT = async function () {
 registerSchema.statics.verifyJWT = async function (jwt) {
     if (!publicKey) {
         throw new Error("Public key is not set");
+    }
+    if (!jwt) {
+        throw new Error("JWT is not provided");
     }
     try {
         const { payload } = await (0, jose_1.jwtVerify)(jwt, publicKey);

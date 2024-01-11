@@ -11,6 +11,8 @@ class RegisterService {
             password,
             email,
         });
+        const jwt = await newRegister.generateJWT();
+        newRegister.jwt = jwt;
         return await newRegister.save();
     }
     async getAllRegisters() {

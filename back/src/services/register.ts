@@ -21,9 +21,20 @@ class RegisterService {
   async getAllRegisters(): Promise<IRegister[]> {
     return await Register.find();
   }
-  async deleteUser(id: string): Promise<IRegister | null> {
-    // Changez le type de retour à Promise<IRegister | null>
-    return await Register.findByIdAndDelete(id);
+  async deleteUser(id: string): Promise<boolean> {
+    try {
+      const deletedUser = await Register.findByIdAndDelete(id);
+
+      // Vérifiez si un utilisateur a été supprimé
+      if (deletedUser) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      throw new Error("Error deleting user");
+    }
   }
 }
 

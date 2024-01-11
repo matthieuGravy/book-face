@@ -19,8 +19,20 @@ class RegisterService {
         return await register_1.default.find();
     }
     async deleteUser(id) {
-        // Changez le type de retour à Promise<IRegister | null>
-        return await register_1.default.findByIdAndDelete(id);
+        try {
+            const deletedUser = await register_1.default.findByIdAndDelete(id);
+            // Vérifiez si un utilisateur a été supprimé
+            if (deletedUser) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        catch (error) {
+            console.error("Error deleting user:", error);
+            throw new Error("Error deleting user");
+        }
     }
 }
 exports.default = RegisterService;

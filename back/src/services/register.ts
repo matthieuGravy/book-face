@@ -12,12 +12,29 @@ class RegisterService {
       password,
       email,
     });
+    const jwt = await newRegister.generateJWT();
+    newRegister.jwt = jwt;
 
     return await newRegister.save();
   }
 
   async getAllRegisters(): Promise<IRegister[]> {
     return await Register.find();
+  }
+  async deleteUser(id: string): Promise<boolean> {
+    try {
+      const deletedUser = await Register.findByIdAndDelete(id);
+
+      // Vérifiez si un utilisateur a été supprimé
+      if (deletedUser) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      throw new Error("Error deleting user");
+    }
   }
 }
 

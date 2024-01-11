@@ -2,7 +2,10 @@ import Register from "../models/register";
 import { IRegister } from "../models/register";
 
 class AuthService {
-  async login(email: string, password: string): Promise<IRegister | null> {
+  async login(
+    email: string,
+    password: string
+  ): Promise<{ user: IRegister; jwt: string } | null> {
     try {
       const register = await Register.findOne({ email }).select(
         "+hashedPassword"
@@ -17,7 +20,8 @@ class AuthService {
 
       if (passwordMatch) {
         console.log("User logged in successfully:", email);
-        return register;
+        const jwt = await register.generateJWT(); // Générer un JWT pour l'utilisateur
+        return { user: register, jwt }; // Retourner l'utilisateur et le JWT
       } else {
         console.log("Invalid password for user:", email);
         return null;

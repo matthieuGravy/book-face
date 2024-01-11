@@ -9,11 +9,10 @@ router.post("/", async (req: Request, res: Response) => {
 
   try {
     const user = await authService.login(email, password);
-
     if (user) {
-      res.json(user);
+      res.json({ connected: true });
     } else {
-      res.status(401).send("Invalid credentials");
+      res.json({ connected: false });
     }
   } catch (err) {
     console.error(err instanceof Error ? err.message : err);

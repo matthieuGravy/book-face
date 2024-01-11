@@ -15,6 +15,17 @@ router.get("/", async (_, res: Response) => {
   }
 });
 
+//supprimer un user
+router.delete("/:id", async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const deletedUser = await registerService.deleteUser(id); // Utilisez registerService au lieu de userService
+  if (deletedUser) {
+    res.json({ deleted: true });
+  } else {
+    res.status(404).send("User not found");
+  }
+});
+
 router.post("/", async (req: Request, res: Response) => {
   const { username, password, email } = req.body;
 

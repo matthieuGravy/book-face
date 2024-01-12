@@ -1,6 +1,7 @@
-import mongoose, { Schema, Document, CallbackError } from "mongoose";
+import mongoose, { Schema, Document } from "mongoose";
 
 export interface IProfile extends Document {
+  userId: mongoose.Schema.Types.ObjectId; // Référence au modèle Register IRegister
   firstname: string;
   lastname: string;
   birthdate: Date;
@@ -11,8 +12,13 @@ export interface IProfile extends Document {
   description: string;
 }
 
-const registerSchema = new Schema<IProfile>(
+const profileSchema = new Schema<IProfile>(
   {
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: "Register", // Référence au modèle Register IRegister
+    },
     firstname: {
       type: String,
       required: false,
@@ -55,6 +61,10 @@ const registerSchema = new Schema<IProfile>(
     },
   },
   {
-    collection: "register",
+    collection: "profile",
   }
 );
+
+const Profile = mongoose.model<IProfile>("Profile", profileSchema);
+
+export default Profile;

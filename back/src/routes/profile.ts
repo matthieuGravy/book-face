@@ -1,5 +1,5 @@
 import express from "express";
-import ProfileService from "../services/profile"; // Assurez-vous d'importer ProfileService
+import ProfileService from "../services/profile";
 
 const router = express.Router();
 

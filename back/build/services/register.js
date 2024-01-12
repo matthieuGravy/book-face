@@ -4,6 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const register_1 = __importDefault(require("../models/register"));
+const profile_1 = __importDefault(require("../models/profile"));
+const profile_2 = __importDefault(require("./profile"));
 class RegisterService {
     async createRegister(username, password, email) {
         const newRegister = new register_1.default({
@@ -11,17 +13,41 @@ class RegisterService {
             password,
             email,
         });
-        const jwt = await newRegister.generateJWT();
-        newRegister.jwt = jwt;
-        return await newRegister.save();
+        const savedRegister = await newRegister.save(); // Sauvegarder d'abord le nouvel utilisateur
+        const profileData = {
+            userId: savedRegister._id, // Utiliser l'ID du nouvel utilisateur
+            firstname: "",
+            lastname: "",
+            birthdate: null,
+            genre: "",
+            city: "",
+            country: "",
+            picture: "",
+            description: "",
+        };
+        await profile_2.default.createOrUpdateProfile(profileData); // Utiliser la méthode correcte de ProfileService
+        const jwt = await savedRegister.generateJWT();
+        savedRegister.jwt = jwt;
+        return await savedRegister.save();
+    }
+    async createOrUpdateProfile(profileData) {
+        const profile = await profile_1.default.findOneAndUpdate({ userId: profileData.userId }, // critère de recherche
+        profileData, // nouvelles données
+        { new: true, upsert: true } // options
+        );
+        // Renvoie le profil complet après sa création ou sa mise à jour
+        return profile;
     }
     async getAllRegisters() {
         return await register_1.default.find();
     }
+    async getUser(id) {
+        return await register_1.default.findById(id);
+    }
     async deleteUser(id) {
         try {
             const deletedUser = await register_1.default.findByIdAndDelete(id);
-            // Vérifiez si un utilisateur a été supprimé
+            // Vérifier si un utilisateur a été supprimé
             if (deletedUser) {
                 return true;
             }

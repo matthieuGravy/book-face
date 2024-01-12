@@ -26,6 +26,22 @@ router.delete("/:id", async (req: Request, res: Response) => {
   }
 });
 
+//modifier un user
+router.get("/:id/", async (req: Request, res: Response) => {
+  const { id } = req.params;
+  try {
+    const getuser = await registerService.getUser(id);
+    if (getuser) {
+      res.json(getuser);
+    } else {
+      res.status(404).send("User not found");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("An error occurred while retrieving the user");
+  }
+});
+
 router.post("/", async (req: Request, res: Response) => {
   const { username, password, email } = req.body;
 
@@ -36,7 +52,6 @@ router.post("/", async (req: Request, res: Response) => {
     });
     return;
   }
-
   try {
     const register = await registerService.createRegister(
       username,

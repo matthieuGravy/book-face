@@ -28,3 +28,10 @@ const publicationSchema = new Schema<IPublication>(
   },
   { timestamps: true }
 );
+
+const Publication = mongoose.model<IPublication>(
+  "Publication",
+  publicationSchema
+);
+
+export default Publication;

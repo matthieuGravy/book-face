@@ -41,3 +41,5 @@ const publicationSchema = new mongoose_1.Schema({
         unique: false,
     },
 }, { timestamps: true });
+const Publication = mongoose_1.default.model("Publication", publicationSchema);
+exports.default = Publication;

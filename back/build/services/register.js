@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const register_1 = __importDefault(require("../models/register"));
 const profile_1 = __importDefault(require("../models/profile"));
 const profile_2 = __importDefault(require("./profile"));
-// Assurez-vous que le chemin est correct
 class RegisterService {
     async createRegister(username, password, email) {
         const newRegister = new register_1.default({
@@ -14,9 +13,9 @@ class RegisterService {
             password,
             email,
         });
-        const savedRegister = await newRegister.save(); // Sauvegardez d'abord le nouvel utilisateur
+        const savedRegister = await newRegister.save(); // Sauvegarder d'abord le nouvel utilisateur
         const profileData = {
-            userId: savedRegister._id, // Utilisez l'ID du nouvel utilisateur
+            userId: savedRegister._id, // Utiliser l'ID du nouvel utilisateur
             firstname: "",
             lastname: "",
             birthdate: null,
@@ -26,7 +25,7 @@ class RegisterService {
             picture: "",
             description: "",
         };
-        await profile_2.default.createOrUpdateProfile(profileData); // Utilisez la méthode correcte de ProfileService
+        await profile_2.default.createOrUpdateProfile(profileData); // Utiliser la méthode correcte de ProfileService
         const jwt = await savedRegister.generateJWT();
         savedRegister.jwt = jwt;
         return await savedRegister.save();
@@ -48,7 +47,7 @@ class RegisterService {
     async deleteUser(id) {
         try {
             const deletedUser = await register_1.default.findByIdAndDelete(id);
-            // Vérifiez si un utilisateur a été supprimé
+            // Vérifier si un utilisateur a été supprimé
             if (deletedUser) {
                 return true;
             }

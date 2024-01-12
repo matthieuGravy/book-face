@@ -29,7 +29,7 @@ router.delete("/:id", async (req, res) => {
     }
 });
 //modifier un user
-router.get("/:id", async (req, res) => {
+router.get("/:id/", async (req, res) => {
     const { id } = req.params;
     try {
         const getuser = await registerService.getUser(id);

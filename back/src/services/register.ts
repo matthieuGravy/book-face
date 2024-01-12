@@ -1,10 +1,7 @@
-import Register from "../models/register";
-import { IRegister } from "../models/register";
-import Profile from "../models/profile";
-import { IProfile } from "../models/profile";
+import Register, { IRegister } from "../models/register";
+import Profile, { IProfile } from "../models/profile";
 import ProfileService from "./profile";
 
-// Assurez-vous que le chemin est correct
 class RegisterService {
   async createRegister(
     username: string,
@@ -16,10 +13,10 @@ class RegisterService {
       password,
       email,
     });
-    const savedRegister = await newRegister.save(); // Sauvegardez d'abord le nouvel utilisateur
+    const savedRegister = await newRegister.save(); // Sauvegarder d'abord le nouvel utilisateur
 
     const profileData: Partial<IProfile> = {
-      userId: savedRegister._id, // Utilisez l'ID du nouvel utilisateur
+      userId: savedRegister._id, // Utiliser l'ID du nouvel utilisateur
       firstname: "",
       lastname: "",
       birthdate: null,
@@ -29,7 +26,7 @@ class RegisterService {
       picture: "",
       description: "",
     };
-    await ProfileService.createOrUpdateProfile(profileData); // Utilisez la méthode correcte de ProfileService
+    await ProfileService.createOrUpdateProfile(profileData); // Utiliser la méthode correcte de ProfileService
 
     const jwt = await savedRegister.generateJWT();
     savedRegister.jwt = jwt;
@@ -57,7 +54,7 @@ class RegisterService {
     try {
       const deletedUser = await Register.findByIdAndDelete(id);
 
-      // Vérifiez si un utilisateur a été supprimé
+      // Vérifier si un utilisateur a été supprimé
       if (deletedUser) {
         return true;
       } else {

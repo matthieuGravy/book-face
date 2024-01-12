@@ -28,8 +28,7 @@ class RegisterService {
         return await register_1.default.find();
     }
     async getUser(id) {
-        const user = await register_1.default.findById(id);
-        return user;
+        return await register_1.default.findById(id);
     }
     async deleteUser(id) {
         try {

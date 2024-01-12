@@ -35,8 +35,7 @@ class RegisterService {
     return await Register.find();
   }
   async getUser(id: string) {
-    const user = await Register.findById(id);
-    return user;
+    return await Register.findById(id);
   }
   async deleteUser(id: string): Promise<boolean> {
     try {

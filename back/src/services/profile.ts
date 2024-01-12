@@ -1,8 +1,8 @@
-import { IProfile } from "../models/profile";
 import Profile from "../models/profile";
+import { IProfile } from "../models/profile";
 
 class ProfileService {
-  async createOrUpdateProfile(profileData: IProfile) {
+  async createOrUpdateProfile(profileData: Partial<IProfile>) {
     const profile = await Profile.findOneAndUpdate(
       { userId: profileData.userId }, // critère de recherche
       profileData, // nouvelles données
@@ -13,11 +13,7 @@ class ProfileService {
     return profile;
   }
 
-  async getProfile(userId: string) {
-    return await Profile.findOne({ userId });
-  }
-
-  // Autres méthodes à ajouter ici
+  // Ajoutez d'autres méthodes au besoin
 }
 
 export default new ProfileService();

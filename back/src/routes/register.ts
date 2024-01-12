@@ -1,5 +1,4 @@
 import express, { Router, Request, Response } from "express";
-import axios from "axios";
 
 import RegisterService from "../services/register";
 

@@ -13,8 +13,5 @@ class ProfileService {
         // Renvoie le profil complet après sa création ou sa mise à jour
         return profile;
     }
-    async getProfile(userId) {
-        return await profile_1.default.findOne({ userId });
-    }
 }
 exports.default = new ProfileService();

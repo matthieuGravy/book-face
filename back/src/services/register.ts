@@ -1,9 +1,10 @@
 import Register from "../models/register";
 import { IRegister } from "../models/register";
-
-import { IProfile } from "../models/profile";
 import Profile from "../models/profile";
+import { IProfile } from "../models/profile";
+import ProfileService from "./profile";
 
+// Assurez-vous que le chemin est correct
 class RegisterService {
   async createRegister(
     username: string,
@@ -15,10 +16,25 @@ class RegisterService {
       password,
       email,
     });
-    const jwt = await newRegister.generateJWT();
-    newRegister.jwt = jwt;
+    const savedRegister = await newRegister.save(); // Sauvegardez d'abord le nouvel utilisateur
 
-    return await newRegister.save();
+    const profileData: Partial<IProfile> = {
+      userId: savedRegister._id, // Utilisez l'ID du nouvel utilisateur
+      firstname: "",
+      lastname: "",
+      birthdate: null,
+      genre: "",
+      city: "",
+      country: "",
+      picture: "",
+      description: "",
+    };
+    await ProfileService.createOrUpdateProfile(profileData); // Utilisez la méthode correcte de ProfileService
+
+    const jwt = await savedRegister.generateJWT();
+    savedRegister.jwt = jwt;
+
+    return await savedRegister.save();
   }
   async createOrUpdateProfile(profileData: IProfile) {
     const profile = await Profile.findOneAndUpdate(

@@ -5,6 +5,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const register_1 = __importDefault(require("../models/register"));
 const profile_1 = __importDefault(require("../models/profile"));
+const profile_2 = __importDefault(require("./profile"));
+// Assurez-vous que le chemin est correct
 class RegisterService {
     async createRegister(username, password, email) {
         const newRegister = new register_1.default({
@@ -12,9 +14,22 @@ class RegisterService {
             password,
             email,
         });
-        const jwt = await newRegister.generateJWT();
-        newRegister.jwt = jwt;
-        return await newRegister.save();
+        const savedRegister = await newRegister.save(); // Sauvegardez d'abord le nouvel utilisateur
+        const profileData = {
+            userId: savedRegister._id, // Utilisez l'ID du nouvel utilisateur
+            firstname: "",
+            lastname: "",
+            birthdate: null,
+            genre: "",
+            city: "",
+            country: "",
+            picture: "",
+            description: "",
+        };
+        await profile_2.default.createOrUpdateProfile(profileData); // Utilisez la méthode correcte de ProfileService
+        const jwt = await savedRegister.generateJWT();
+        savedRegister.jwt = jwt;
+        return await savedRegister.save();
     }
     async createOrUpdateProfile(profileData) {
         const profile = await profile_1.default.findOneAndUpdate({ userId: profileData.userId }, // critère de recherche

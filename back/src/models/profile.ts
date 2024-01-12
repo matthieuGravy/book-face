@@ -4,7 +4,7 @@ export interface IProfile extends Document {
   userId: mongoose.Schema.Types.ObjectId; // Référence au modèle Register IRegister
   firstname: string;
   lastname: string;
-  birthdate: Date;
+  birthdate: Date | null;
   genre: string;
   city: string;
   country: string;

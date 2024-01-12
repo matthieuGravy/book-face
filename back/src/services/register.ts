@@ -1,6 +1,9 @@
 import Register from "../models/register";
 import { IRegister } from "../models/register";
 
+import { IProfile } from "../models/profile";
+import Profile from "../models/profile";
+
 class RegisterService {
   async createRegister(
     username: string,
@@ -17,9 +20,23 @@ class RegisterService {
 
     return await newRegister.save();
   }
+  async createOrUpdateProfile(profileData: IProfile) {
+    const profile = await Profile.findOneAndUpdate(
+      { userId: profileData.userId }, // critère de recherche
+      profileData, // nouvelles données
+      { new: true, upsert: true } // options
+    );
+
+    // Renvoie le profil complet après sa création ou sa mise à jour
+    return profile;
+  }
 
   async getAllRegisters(): Promise<IRegister[]> {
     return await Register.find();
+  }
+  async getUser(id: string) {
+    const user = await Register.findById(id);
+    return user;
   }
   async deleteUser(id: string): Promise<boolean> {
     try {

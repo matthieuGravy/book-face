@@ -1,7 +1,6 @@
 import { Request, Response, Router } from "express";
 
 import ProfileService from "../services/profile";
-
 const router = Router();
 
 // Route pour créer un profil

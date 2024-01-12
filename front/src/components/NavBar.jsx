@@ -5,18 +5,18 @@ const NavBar =() => {
     return (
         
        
-        <div className="navbar bg-gray-800">
+        <div className="navbar bg-purple-400">
           
       
       
   <div className="flex-1">
-   
+   <Link to= "/">
     <img src="src\images\FoodieMedia.png" alt="" className="w-16 h-50" />
-  </div>
+ </Link> </div>
   <div className="flex-none gap-2">
     <div className="form-control">
       <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-auto" />
-    </div>  <button className="btn btn-outline bg-gray-100 ">Home</button>
+    </div> <Link to="/"> <button className="btn btn-outline bg-gray-100 ">Home</button></Link>
     <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">
@@ -33,8 +33,10 @@ const NavBar =() => {
                 </Link>
                 </li>
         
-        <li><a>Settings</a></li>
-        <li>  <Link to="/">
+                <li>  <Link to="/Login">
+                Login
+                </Link></li>
+        <li>  <Link to="Signup">
                   Don't have an account? Sign Up
                 </Link></li>
       </ul>

@@ -1,10 +1,9 @@
 import React from 'react';
+
 import { Link } from 'react-router-dom';
 
-
-const Signup =() => {
+const Login =() => {
     return ( 
-  
     <>
     <div className=" py-20 flex items-center justify-center bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
   <div className="relative">
@@ -17,18 +16,11 @@ const Signup =() => {
         id="form-title"
         className="text-center text-3xl font-bold mb-10 text-gray-800"
       >
-        SignUp
+        Login
       </h2>
       <form className="space-y-5">
-      <input
-          className="w-full h-12 border border-gray-800 px-3 rounded-lg"
-          placeholder="UserName"
-          id=""
-          name=""
-          type="text"
-        />
         <input
-          className="w-full h-12 border border-gray-800 px-3 rounded-lg"
+className="w-full h-12 border border-gray-800 px-3 rounded-lg"
           placeholder="Email"
           id=""
           name=""
@@ -45,9 +37,16 @@ const Signup =() => {
         className="w-full h-12 [background:linear-gradient(144deg,#af40ff,#5b42f3_50%,#00ddeb)] text-white px-4 py-2 font-bold rounded-md hover:opacity-80"
         type="submit"
       >
-  SignUp
+    Login
       </button>
-      
+        <br />
+        <Link className="text-blue-500 hover:text-blue-800 text-sm" to="/PasswordRecovery">
+          Forgot Password?
+        </Link>
+        <hr />
+        <Link  className="text-blue-500 hover:text-blue-800 text-sm" to="/PasswordRecovery" to="/">
+                  Don't have an account? Sign Up
+                </Link>
       </form>
     </div>
   </div>
@@ -58,4 +57,4 @@ const Signup =() => {
 
     
 
-export default Signup;
+export default Login;

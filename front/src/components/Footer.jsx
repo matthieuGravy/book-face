@@ -1,9 +1,11 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
 const Footer =() => {
     return (
-        <footer className="footer items-center absolute bottom-0 bg-gray-800 mb-0 text-neutral-content h-[10vh]">
- 
+        <footer className="footer items-center relative bottom-0 bg-purple-400   text-neutral-content h-[10vh]">
+   <Link to= "/">
   <img src="src\images\FoodieMedia.png" alt="" className="w-10" />
-    <p>Copyright © 2024 - All right reserved</p>
+   </Link> <p>Copyright © 2024 - All right reserved</p>
 
  
 </footer>

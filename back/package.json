@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "tsc -w & nodemon ./build/index.js",
-    "start:windows": "tsc-watch --onSuccess \"node ./build/index.js\""
+    "start:windows": "tsc-watch --onSuccess \"node ./build/index.js\"",
+    "cypress:open": "cypress open"
   },
   "keywords": [],
   "author": "",

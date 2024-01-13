@@ -40,6 +40,9 @@ const publicationSchema = new mongoose_1.Schema({
         required: false,
         unique: false,
     },
-}, { timestamps: true });
+}, {
+    timestamps: true,
+    collection: "publications",
+});
 const Publication = mongoose_1.default.model("Publication", publicationSchema);
 exports.default = Publication;

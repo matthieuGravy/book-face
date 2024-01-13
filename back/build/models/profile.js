@@ -70,6 +70,11 @@ const profileSchema = new mongoose_1.Schema({
         required: false,
         unique: false,
     },
+    posts: {
+        type: [mongoose_1.Schema.Types.ObjectId],
+        ref: "Publication",
+        default: [],
+    },
 }, {
     collection: "profile",
 });

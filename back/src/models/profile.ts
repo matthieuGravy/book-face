@@ -10,6 +10,7 @@ export interface IProfile extends Document {
   country: string;
   picture: string;
   description: string;
+  posts: mongoose.Types.ObjectId[]; // tableau d'IDs de publications
 }
 
 const profileSchema = new Schema<IProfile>(
@@ -58,6 +59,11 @@ const profileSchema = new Schema<IProfile>(
       type: String,
       required: false,
       unique: false,
+    },
+    posts: {
+      type: [Schema.Types.ObjectId],
+      ref: "Publication",
+      default: [],
     },
   },
   {

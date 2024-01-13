@@ -22,4 +22,19 @@ router.put("/:userId", async (req, res) => {
   }
 });
 
+router.post("/:profileId/post", async (req, res) => {
+  try {
+    const profileId = req.params.profileId;
+    const postData = req.body;
+    const post = await ProfileService.createPost(profileId, postData);
+    res.json(post);
+  } catch (error) {
+    if (error instanceof Error) {
+      res.status(500).json({ error: error.toString() });
+    } else {
+      res.status(500).json({ error: "Une erreur inconnue s'est produite" });
+    }
+  }
+});
+
 export default router;

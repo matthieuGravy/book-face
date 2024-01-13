@@ -26,7 +26,10 @@ const publicationSchema = new Schema<IPublication>(
       unique: false,
     },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+    collection: "publications",
+  }
 );
 
 const Publication = mongoose.model<IPublication>(

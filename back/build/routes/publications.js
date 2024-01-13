@@ -24,20 +24,3 @@ router.put("/:userId", async (req, res) => {
         res.status(500).send("Erreur du serveur");
     }
 });
-router.post("/:profileId/post", async (req, res) => {
-    try {
-        const profileId = req.params.profileId;
-        const postData = req.body;
-        const post = await profile_1.default.createPost(profileId, postData);
-        res.json(post);
-    }
-    catch (error) {
-        if (error instanceof Error) {
-            res.status(500).json({ error: error.toString() });
-        }
-        else {
-            res.status(500).json({ error: "Une erreur inconnue s'est produite" });
-        }
-    }
-});
-exports.default = router;

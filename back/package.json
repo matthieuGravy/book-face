@@ -21,8 +21,5 @@
     "mongoose": "^8.0.3",
     "nodemon": "^3.0.2",
     "typescript": "^5.3.3"
-  },
-  "devDependencies": {
-    "cypress": "^13.6.2"
   }
 }

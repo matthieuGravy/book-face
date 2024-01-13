@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const profile_1 = __importDefault(require("../services/profile"));
+const publications_1 = __importDefault(require("../services/publications"));
 const router = express_1.default.Router();
 router.put("/:userId", async (req, res) => {
     console.log("Received request"); // Ajout d'un log ici
@@ -42,8 +43,25 @@ router.post("/:profileId/post", async (req, res) => {
     // récupèrer les publication d'un user
     router.get("/:profileId/posts", async (req, res) => {
         try {
+            const publicationService = new publications_1.default();
             const profileId = req.params.profileId;
-            const posts = await profile_1.default.getPosts(profileId);
+            const posts = await publicationService.getPosts(profileId); // Utilisez publicationService, pas PublicationService
+            res.json(posts);
+        }
+        catch (error) {
+            if (error instanceof Error) {
+                res.status(500).json({ error: error.toString() });
+            }
+            else {
+                res.status(500).json({ error: "Une erreur inconnue s'est produite" });
+            }
+        }
+    });
+    // récupèrer toutes les publications
+    router.get("/posts", async (_req, res) => {
+        try {
+            const publicationService = new publications_1.default();
+            const posts = await publicationService.getAllPosts(); // Utilisez publicationService, pas PublicationService
             res.json(posts);
         }
         catch (error) {

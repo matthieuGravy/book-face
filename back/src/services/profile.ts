@@ -32,6 +32,7 @@ class ProfileService {
     return publication;
   }
   // récupèrer les publication d'un user (getPosts)
+  /*
   async getPosts(profileId: string) {
     try {
       const publications = await Publication.find({ userId: profileId });
@@ -42,6 +43,7 @@ class ProfileService {
       throw error;
     }
   }
+  */
 }
 
 export default new ProfileService();

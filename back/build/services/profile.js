@@ -29,5 +29,17 @@ class ProfileService {
         }
         return publication;
     }
+    // récupèrer les publication d'un user (getPosts)
+    async getPosts(profileId) {
+        try {
+            const publications = await publications_1.default.find({ userId: profileId });
+            console.log(`Publications: ${JSON.stringify(publications)}`); // Log the publications
+            return publications;
+        }
+        catch (error) {
+            console.error(`Error while getting posts: ${error}`);
+            throw error;
+        }
+    }
 }
 exports.default = new ProfileService();

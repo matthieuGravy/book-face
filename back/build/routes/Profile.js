@@ -39,5 +39,21 @@ router.post("/:profileId/post", async (req, res) => {
             res.status(500).json({ error: "Une erreur inconnue s'est produite" });
         }
     }
+    // récupèrer les publication d'un user
+    router.get("/:profileId/posts", async (req, res) => {
+        try {
+            const profileId = req.params.profileId;
+            const posts = await profile_1.default.getPosts(profileId);
+            res.json(posts);
+        }
+        catch (error) {
+            if (error instanceof Error) {
+                res.status(500).json({ error: error.toString() });
+            }
+            else {
+                res.status(500).json({ error: "Une erreur inconnue s'est produite" });
+            }
+        }
+    });
 });
 exports.default = router;

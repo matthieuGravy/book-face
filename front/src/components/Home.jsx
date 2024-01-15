@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-// Composant de Post
+
 class Post extends Component {
   render() {
     const { title, content, onDelete } = this.props;
@@ -22,7 +22,7 @@ class Post extends Component {
   }
 }
 
-// Composant de la Homepage
+
 class Home extends Component {
   constructor(props) {
     super(props);
@@ -37,6 +37,7 @@ class Home extends Component {
       ],
       newPostContent: '',
       newPostCategory: 'vacances',
+      isSidebarOpen: false, 
     };
   }
 
@@ -54,7 +55,7 @@ class Home extends Component {
     if (newPostContent) {
       const newPost = {
         id: Date.now(),
-        title: 'N/A', // Titre non spécifié
+        title: 'N/A', 
         content: newPostContent,
         category: newPostCategory,
       };
@@ -73,8 +74,14 @@ class Home extends Component {
     }));
   };
 
+  handleToggleSidebar = () => {
+    this.setState((prevState) => ({
+      isSidebarOpen: !prevState.isSidebarOpen,
+    }));
+  };
+
   render() {
-    const { posts, selectedCategory, newPostContent, newPostCategory } = this.state;
+    const { posts, selectedCategory, newPostContent, newPostCategory, isSidebarOpen } = this.state;
 
     const filteredPosts =
       selectedCategory === 'all'
@@ -82,9 +89,41 @@ class Home extends Component {
         : posts.filter(post => post.category.toLowerCase() === selectedCategory.toLowerCase());
 
     return (
-      <div className="bg-black text-white p-8">
-        <h1 className="text-5xl text-center text-white-500 font-bold mb-6" style={{ textShadow: '2px 2px 4px rgba(255, 255, 255, 0.7)', border: '2px solid black' }}> Home page</h1>
+      <div className="bg-black text-white p-8 relative bg-pink">
+        <h1 className="text-5xl text-center text-white-500 font-bold mb-6 bg-pink" style={{ textShadow: '2px 2px 4px rgba(255, 255, 255, 0.7)', border: '2px solid black' }}> Home page</h1>
 
+        {}
+        <button
+          className="fixed top-20 right-8 p-4 text-white bg-pink-500 rounded-full"
+          onClick={this.handleToggleSidebar}
+        >
+          {isSidebarOpen ? 'Fermer' : 'Ouvrir'} le menu
+        </button>
+
+        {}
+        
+
+<div
+  className={`fixed top-24 right-0 h-full bg-pink-800 p-4 transition-transform transform ${
+    isSidebarOpen ? 'translate-x-0' : 'translate-x-full'
+  } rounded-l-3xl opacity-75`}
+  style={{ width: '200px' }}
+>
+  {}
+  <div className="text-white">
+    <p>Messages</p><br/>
+    <p>jeux </p>
+    <p>Mes blabla</p>
+    <p>Bigoudis</p>
+    {}
+  </div>
+</div>
+
+
+
+
+
+        {}
         <div className="flex justify-center space-x-4 mb-4">
           <button
             className={`px-6 py-3 rounded ${
@@ -160,48 +199,53 @@ class Home extends Component {
           </button>
         </div>
 
+        
         <div className="mt-12 mb-4 w-1/2 mx-auto bg-fuchsia-900 rounded" style={{ boxShadow: '0px 0px 10px rgba(255, 255, 255, 0.7)' }}>
-  <div className="flex flex-col mb-4">
-    <label htmlFor="newPostContent" className="text-lg mr-2">
-      NOUVEAU POST :
-    </label>
-    <textarea
-      id="newPostContent"
-      value={newPostContent}
-      onChange={(e) => this.handleNewPostChange(e, 'newPostContent')}
-      className="p-2 border border-white rounded text-black bg-gray-200 mb-4 w-auto"
-    />
-  </div>
+          <div className="flex flex-col mb-4">
+            <label htmlFor="newPostContent" className="text-lg mr-2">
+              NOUVEAU POST :
+            </label>
+            <textarea
+              id="newPostContent"
+              value={newPostContent}
+              onChange={(e) => this.handleNewPostChange(e, 'newPostContent')}
+              className="p-2 border border-white rounded text-black bg-gray-200 mb-4 w-auto"
+            />
+          </div>
 
-  <div className="flex items-end">
-    <label htmlFor="newPostCategory" className="text-lg mr-2">Catégorie :</label>
-    <select
-      id="newPostCategory"
-      value={newPostCategory}
-      onChange={(e) => this.handleNewPostChange(e, 'newPostCategory')}
-      className="border border-white rounded text-black bg-fuchsia-900 rounded mb-4"
-    >
-      <option value="vacances">Vacances</option>
-      <option value="famille">Famille</option>
-      <option value="animaux">Animaux</option>
-      <option value="cuisine">Cuisine</option>
-      <option value="sport">Sport</option>
-    </select>
-  </div>
+         {}
+<div className="flex items-end">
+  <label htmlFor="newPostCategory" className="text-lg mr-2">Catégorie :</label>
+  <select
+    id="newPostCategory"
+    value={newPostCategory}
+    onChange={(e) => this.handleNewPostChange(e, 'newPostCategory')}
+    className="border border-white rounded text-black bg-fuchsia-900 rounded mb-4"
+    style={{ borderRadius: '8px' }} 
+  >
+    <option value="vacances">Vacances</option>
+    <option value="famille">Famille</option>
+    <option value="animaux">Animaux</option>
+    <option value="cuisine">Cuisine</option>
+    <option value="sport">Sport</option>
+  </select>
 </div>
 
-          <button
-            className="mx-auto block px-32 py-4 rounded bg-pink-700 text-white mt-10 mb-20"
-            onClick={this.handleNewPostSubmit}
-            style={{
-              boxShadow: '0px 0px 10px rgba(255, 255, 255, 0.7)',
-              fontSize: '1.2rem',
-            }}
-          >
-            Envoyer Post
-          </button>
-        
+        </div>
 
+        {}
+        <button
+          className="mx-auto block px-32 py-4 rounded bg-pink-700 text-white mt-10 mb-20"
+          onClick={this.handleNewPostSubmit}
+          style={{
+            boxShadow: '0px 0px 10px rgba(255, 255, 255, 0.7)',
+            fontSize: '1.2rem',
+          }}
+        >
+          Envoyer Post
+        </button>
+
+        {}
         {filteredPosts.map(post => (
           <Post key={post.id} title={post.title} content={post.content} onDelete={() => this.handleDeletePost(post.id)} />
         ))}
@@ -211,4 +255,3 @@ class Home extends Component {
 }
 
 export default Home;
-

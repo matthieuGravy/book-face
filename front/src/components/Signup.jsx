@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Signup =() => {
     return ( 
-  
+
     <>
     <div className="h-screen py-20 flex items-center justify-center bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
   <div className="relative">
@@ -47,7 +47,7 @@ const Signup =() => {
       >
   SignUp
       </button>
-      
+
       </form>
     </div>
   </div>
@@ -56,6 +56,6 @@ const Signup =() => {
   );
 }
 
-    
+
 
 export default Signup;

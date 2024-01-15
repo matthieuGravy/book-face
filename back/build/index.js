@@ -13,7 +13,7 @@ const app = (0, express_1.default)();
 // CORS middleware
 const cors = require("cors");
 const corsOptions = {
-    origin: ["http://localhost:5", "https://domaine.com"],
+    origin: ["http://localhost:5218", "https://domaine.com"],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
     credentials: true,
 };

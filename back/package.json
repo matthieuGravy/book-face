@@ -21,7 +21,6 @@
     "jose": "^5.2.0",
     "mjml": "^4.14.1",
     "mongoose": "^8.0.3",
-    "node-mailjet": "^6.0.5",
     "nodemailer": "^6.9.8",
     "nodemon": "^3.0.2",
     "typescript": "^5.3.3"

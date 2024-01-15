@@ -5,6 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const register_1 = __importDefault(require("../services/register"));
+const mailer_1 = require("../config/mailer");
 const router = express_1.default.Router();
 const registerService = new register_1.default();
 router.get("/", async (_, res) => {
@@ -54,6 +55,7 @@ router.post("/", async (req, res) => {
         return;
     }
     try {
+        (0, mailer_1.sendWelcomeEmail)(email);
         const register = await registerService.createRegister(username, password, email);
         res.json(register);
     }

@@ -35,6 +35,7 @@ class Home extends Component {
     };
   }
 
+
   handleCategoryChange = (category) => {
     this.setState({ selectedCategory: category });
   };
@@ -60,6 +61,8 @@ class Home extends Component {
         newPostContent: '',
         newPostCategory: 'vacances',
       }));
+
+
     }
   };
 

@@ -11,7 +11,7 @@ const NavBar =() => {
       
   <div className="flex-1">
    <Link to= "/">
-    <img src="src\images\FoodieMedia.png" alt="" className="w-16 h-50" />
+    <img src="src\images\3.jpg" alt="" className="w-16 h-50" />
  </Link> </div>
   <div className="flex-none gap-2">
     <div className="form-control">

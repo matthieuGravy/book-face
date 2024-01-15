@@ -6,11 +6,17 @@ class Post extends Component {
     const { title, content, onDelete } = this.props;
     return (
       <div className="bg-white p-4 mb-4 shadow-md mx-auto" style={{ width: '70%', borderRadius: '10px' }}>
-        <h2 className="text-xl font-bold w-400">{title}</h2>
+        <div className="flex justify-between items-center mb-2">
+          <h2 className="text-xl font-bold w-400">{title}</h2>
+          <button
+            className="bg-fuchsia-900 text-white px-2 py-1 rounded-md"
+            onClick={onDelete}
+            style={{ fontSize: '0.8rem' }}
+          >
+            Supprimer
+          </button>
+        </div>
         <p className="text-gray-600">{content}</p>
-        <button className="bg-red-500 text-white px-2 py-1 mt-2" onClick={onDelete}>
-          Supprimer
-        </button>
       </div>
     );
   }
@@ -29,12 +35,10 @@ class Home extends Component {
         { id: 4, title: 'Entraînement sportif', content: 'Youpie', category: 'sport' },
         { id: 5, title: 'Animaux adorables', content: 'Wouf-Wouf', category: 'animaux' },
       ],
-      newPostTitle: '',
       newPostContent: '',
       newPostCategory: 'vacances',
     };
   }
-
 
   handleCategoryChange = (category) => {
     this.setState({ selectedCategory: category });
@@ -45,24 +49,21 @@ class Home extends Component {
   };
 
   handleNewPostSubmit = () => {
-    const { newPostTitle, newPostContent, newPostCategory } = this.state;
+    const { newPostContent, newPostCategory } = this.state;
 
-    if (newPostTitle && newPostContent) {
+    if (newPostContent) {
       const newPost = {
         id: Date.now(),
-        title: newPostTitle,
+        title: 'N/A', // Titre non spécifié
         content: newPostContent,
         category: newPostCategory,
       };
 
       this.setState((prevState) => ({
         posts: [newPost, ...prevState.posts],
-        newPostTitle: '',
         newPostContent: '',
         newPostCategory: 'vacances',
       }));
-
-
     }
   };
 
@@ -73,7 +74,7 @@ class Home extends Component {
   };
 
   render() {
-    const { posts, selectedCategory, newPostTitle, newPostContent, newPostCategory } = this.state;
+    const { posts, selectedCategory, newPostContent, newPostCategory } = this.state;
 
     const filteredPosts =
       selectedCategory === 'all'
@@ -159,48 +160,47 @@ class Home extends Component {
           </button>
         </div>
 
-        <div className="mb-4">
-          <div className="mb-4">
-            <label htmlFor="newPostTitle" className="text-lg mr-2  black-text">Titre : </label>
-            <input
-              type="text"
-              id="newPostTitle"
-              value={newPostTitle}
-              onChange={(e) => this.handleNewPostChange(e, 'newPostTitle')}
-              className="p-2 border border-white rounded text-black"
-            />
-          </div>
+        <div className="mt-12 mb-4 w-1/2 mx-auto bg-fuchsia-900 rounded" style={{ boxShadow: '0px 0px 10px rgba(255, 255, 255, 0.7)' }}>
+  <div className="flex flex-col mb-4">
+    <label htmlFor="newPostContent" className="text-lg mr-2">
+      NOUVEAU POST :
+    </label>
+    <textarea
+      id="newPostContent"
+      value={newPostContent}
+      onChange={(e) => this.handleNewPostChange(e, 'newPostContent')}
+      className="p-2 border border-white rounded text-black bg-gray-200 mb-4 w-auto"
+    />
+  </div>
 
-          <div className="mb-4">
-            <label htmlFor="newPostContent" className="text-lg mr-2">Contenu :</label>
-            <textarea
-              id="newPostContent"
-              value={newPostContent}
-              onChange={(e) => this.handleNewPostChange(e, 'newPostContent')}
-              className="p-2 border border-white rounded text-black"
-            />
-          </div>
+  <div className="flex items-end">
+    <label htmlFor="newPostCategory" className="text-lg mr-2">Catégorie :</label>
+    <select
+      id="newPostCategory"
+      value={newPostCategory}
+      onChange={(e) => this.handleNewPostChange(e, 'newPostCategory')}
+      className="border border-white rounded text-black bg-fuchsia-900 rounded mb-4"
+    >
+      <option value="vacances">Vacances</option>
+      <option value="famille">Famille</option>
+      <option value="animaux">Animaux</option>
+      <option value="cuisine">Cuisine</option>
+      <option value="sport">Sport</option>
+    </select>
+  </div>
+</div>
 
-          <div className="mb-4">
-            <label htmlFor="newPostCategory" className="text-lg mr-2">Catégorie :</label>
-            <select
-              id="newPostCategory"
-              value={newPostCategory}
-              onChange={(e) => this.handleNewPostChange(e, 'newPostCategory')}
-              className="p-2 border border-white rounded text-black"
-            >
-              <option value="vacances">Vacances</option>
-              <option value="famille">Famille</option>
-              <option value="animaux">Animaux</option>
-              <option value="cuisine">Cuisine</option>
-              <option value="sport">Sport</option>
-            </select>
-          </div>
-
-          <button className="px-4 py-2 rounded bg-green-500 text-white ml-2" onClick={this.handleNewPostSubmit}>
+          <button
+            className="mx-auto block px-32 py-4 rounded bg-pink-700 text-white mt-10 mb-20"
+            onClick={this.handleNewPostSubmit}
+            style={{
+              boxShadow: '0px 0px 10px rgba(255, 255, 255, 0.7)',
+              fontSize: '1.2rem',
+            }}
+          >
             Envoyer Post
           </button>
-        </div>
+        
 
         {filteredPosts.map(post => (
           <Post key={post.id} title={post.title} content={post.content} onDelete={() => this.handleDeletePost(post.id)} />
@@ -211,6 +211,4 @@ class Home extends Component {
 }
 
 export default Home;
-
-
 

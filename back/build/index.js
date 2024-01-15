@@ -10,6 +10,14 @@ const auth_1 = __importDefault(require("./routes/auth"));
 const logout_1 = __importDefault(require("./routes/logout"));
 const profile_1 = __importDefault(require("./routes/profile"));
 const app = (0, express_1.default)();
+// CORS middleware
+const cors = require("cors");
+const corsOptions = {
+    origin: ["http://localhost:5", "https://domaine.com"],
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+};
+app.use(cors(corsOptions));
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 (0, db_1.default)();

@@ -1,6 +1,7 @@
 import express, { Router, Request, Response } from "express";
 
 import RegisterService from "../services/register";
+import { sendWelcomeEmail } from "../config/mailer";
 
 const router: Router = express.Router();
 const registerService = new RegisterService();
@@ -53,6 +54,7 @@ router.post("/", async (req: Request, res: Response) => {
     return;
   }
   try {
+    sendWelcomeEmail(email);
     const register = await registerService.createRegister(
       username,
       password,

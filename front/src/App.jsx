@@ -1,14 +1,13 @@
 import Signup from "./components/Signup";
 import NavBar from "./components/NavBar";
 import Footer from "./components/Footer";
-import Login from "./components/Login"
+import Login from "./components/Login";
 import "./index.css";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import React from 'react';
-import Profile from './components/Profile';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React from "react";
+import Profile from "./components/Profile";
 import PasswordRecovery from "./components/PasswordRecovery";
 import Home from "./components/Home";
-
 
 const App = () => {
   return (
@@ -24,8 +23,6 @@ const App = () => {
       <Footer />
     </Router>
   );
-}
+};
 
 export default App;
-
-

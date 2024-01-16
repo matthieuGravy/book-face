@@ -44,7 +44,7 @@ className="w-full h-12 border border-gray-800 px-3 rounded-lg"
           Forgot Password?
         </Link>
         <hr />
-        <Link  className="text-blue-500 hover:text-blue-800 text-sm" to="/PasswordRecovery" to="/">
+        <Link  className="text-blue-500 hover:text-blue-800 text-sm" to="/PasswordRecovery" >
                   Don't have an account? Sign Up
                 </Link>
       </form>

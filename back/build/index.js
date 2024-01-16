@@ -12,7 +12,7 @@ const auth_1 = __importDefault(require("./routes/auth"));
 const logout_1 = __importDefault(require("./routes/logout"));
 const profile_1 = __importDefault(require("./routes/profile"));
 const app = (0, express_1.default)();
-// Winston logger
+// Winston
 const { format } = winston;
 const { combine, timestamp, printf } = format;
 const logFormat = printf(({ level, message, timestamp, }) => {

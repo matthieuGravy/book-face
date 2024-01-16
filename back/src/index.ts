@@ -11,7 +11,7 @@ import profileRoutes from "./routes/profile";
 
 const app: Application = express();
 
-// Winston logger
+// Winston
 const { format } = winston;
 const { combine, timestamp, printf } = format;
 

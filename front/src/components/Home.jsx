@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class Post extends Component {
   render() {
-    const { title, content, onDelete } = this.props;
+    const { title, content, image, onDelete } = this.props;
     return (
       <div className="bg-white p-4 mb-4 shadow-md mx-auto md:w-70" style={{ borderRadius: '10px' }}>
         <div className="flex justify-between items-center mb-2">
@@ -14,6 +14,7 @@ class Post extends Component {
             Supprimer
           </button>
         </div>
+        {image && <img src={URL.createObjectURL(image)} alt="Post" className="mb-2 w-full rounded" />}
         <p className="text-gray-600">{content}</p>
       </div>
     );
@@ -44,8 +45,6 @@ class Home extends Component {
         { id: 4, name: 'Mat' },
         { id: 5, name: 'Joseph' },
         { id: 6, name: 'Jean-Alphonse' },
-
-
       ],
     };
   }
@@ -111,7 +110,7 @@ class Home extends Component {
         </h1>
 
         <button
-          className="fixed top-20 right-8 p-4 text-white bg-fuchsia-500 rounded-full text-sm md:text-base opacity-40 "
+          className={`fixed top-20 right-8 p-4 text-white bg-fuchsia-500 rounded-full text-sm md:text-base ${isSidebarOpen ? 'opacity-40' : 'opacity-100'}`}
           onClick={this.handleToggleSidebar}
         >
           {isSidebarOpen ? 'Fermer' : 'Menu'}
@@ -124,10 +123,16 @@ class Home extends Component {
           style={{ width: '200px' }}
         >
           <div className="text-white">
-            
-            
-            <p><strong>Welcome,</strong> <br/> {username}</p><br/><br/><br/>
-            <p><strong>Contacts en ligne</strong></p> <br/>
+            <p>
+              <strong>Welcome,</strong> <br /> {username}
+            </p>
+            <br />
+            <br />
+            <br />
+            <p>
+              <strong>Contacts en ligne</strong>
+            </p>{' '}
+            <br />
             <ul>
               {onlineContacts.map((contact) => (
                 <li key={contact.id} className="flex items-center">
@@ -213,7 +218,7 @@ class Home extends Component {
         </button>
 
         {filteredPosts.map((post) => (
-          <Post key={post.id} title={post.title} content={post.content} onDelete={() => this.handleDeletePost(post.id)} />
+          <Post key={post.id} title={post.title} content={post.content} image={post.image} onDelete={() => this.handleDeletePost(post.id)} />
         ))}
       </div>
     );

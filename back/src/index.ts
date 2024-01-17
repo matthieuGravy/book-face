@@ -8,6 +8,7 @@ import registerRoutes from "./routes/register";
 import authRoutes from "./routes/auth";
 import logoutRoutes from "./routes/logout";
 import profileRoutes from "./routes/profile";
+import wallRoutes from "./routes/wall";
 
 const app: Application = express();
 
@@ -60,6 +61,7 @@ app.use("/register", registerRoutes);
 app.use("/login", authRoutes);
 app.use("/logout", logoutRoutes);
 app.use("/profile", profileRoutes);
+app.use("/wall", wallRoutes);
 
 const port = process.env.PORT || 4900;
 

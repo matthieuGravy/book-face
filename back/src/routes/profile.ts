@@ -52,21 +52,6 @@ router.post("/:profileId/post", async (req, res) => {
       }
     }
   });
-
-  // récupèrer toutes les publications
-  router.get("/posts", async (_req, res) => {
-    try {
-      const publicationService = new PublicationService();
-      const posts = await publicationService.getAllPosts(); // Utilisez publicationService, pas PublicationService
-      res.json(posts);
-    } catch (error) {
-      if (error instanceof Error) {
-        res.status(500).json({ error: error.toString() });
-      } else {
-        res.status(500).json({ error: "Une erreur inconnue s'est produite" });
-      }
-    }
-  });
 });
 
 export default router;

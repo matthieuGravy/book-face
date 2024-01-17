@@ -18,6 +18,7 @@ class PublicationService {
     try {
       const publications = await Publication.find();
       console.log(`Publications: ${JSON.stringify(publications)}`); // Log the publications
+      console.log("PublicationService", PublicationService); // Ajout d'un log ici
       return publications;
     } catch (error) {
       console.error(`Error while getting posts: ${error}`);

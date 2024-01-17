@@ -21,10 +21,12 @@ const Login =() => {
       <form className="space-y-5">
         <input
 className="w-full h-12 border border-gray-800 px-3 rounded-lg"
-          placeholder="Email"
-          id=""
-          name=""
-          type="text"
+type="email"
+id="floatingInputEmail"
+placeholder="name@example.com"
+required
+value={email}
+onChange={(e) => setEmail(e.target.value)}
         />
         <input
           className="w-full h-12 border border-gray-800 px-3 rounded-lg"

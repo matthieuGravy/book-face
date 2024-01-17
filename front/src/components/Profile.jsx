@@ -1,24 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMessage,faUserPlus, faUsers } from '@fortawesome/free-solid-svg-icons';
-import Modal from 'react-modal';
-import MyModal from './MyModal'
+
 
 const randomImage = 'https://source.unsplash.com/1600x900/?900/?nature,water,sport'
 
-Modal.setAppElement('#root'); // This line is needed for accessibility reasons
+
 
 const Profile =() => {
-    const [modalIsOpen, setModalIsOpen] = useState(false);
+
     const [posts, setPosts] = useState([]);
 
-    const openModal = () => {
-        setModalIsOpen(true);
-    }
-
-    const closeModal = () => {
-        setModalIsOpen(false);
-    }
 
     useEffect(() => {
         fetch('http://localhost:4900/profile/:profileId/posts')
@@ -28,7 +20,7 @@ const Profile =() => {
 
     return ( 
       <>
-        <MyModal isOpen={modalIsOpen} onRequestClose={closeModal} />
+      
         <div className='h-screen relative pb-2  justify-center items-center bg-gradient-to-r from-purple-400 via-pink-500 to-red-500'>
           <div className='flex flex-col pb-5'>
             <div className='relative flex flex-col mb-7'>
@@ -43,13 +35,49 @@ const Profile =() => {
                     <h3 className='text-xl pt-4'>Riadh Trabelsi</h3>
                   </div>
                   <div className='profileButton pt-4'>
-                    <button className='bg-blue-600 w-24 h-10 rounded mr-4 button1' onClick={openModal} >
-                      <FontAwesomeIcon icon={faUsers}/> contact
-                    </button>
-                    <button className='bg-blue-600 w-28 h-10 rounded' >
+                 
+                    <button className='bg-blue-600  rounded btn' >
                       <FontAwesomeIcon icon={faUserPlus} /> 
                       Add Freind
                     </button>
+                    <button className="btn bg-blue-600  rounded mr-4" onClick={()=>document.getElementById('my_modal_1').showModal()}> <FontAwesomeIcon icon={faUsers}/> contacts</button>
+<dialog id="my_modal_1" className="modal ">
+  <div className="modal-box bg-purple-200">
+  <div className="text-xl">Contacts</div>
+      <p>
+        {" "}
+        Contact <button className="ms-10 bg-blue-500 rounded">
+          Block
+        </button>{" "}
+        <button className="ms-4 bg-blue-500 rounded">Delete</button>
+      </p>{" "}
+      <br />
+      <p>
+        {" "}
+        Contact <button className="ms-10 bg-blue-500 rounded">Block</button>
+        <button className="ms-4 bg-blue-500 rounded">Delete</button>
+      </p>{" "}
+      <br />
+      <p>
+        {" "}
+        Contact <button className="ms-10 bg-blue-500 rounded">Block</button>
+        <button className="ms-4 bg-blue-500 rounded">Delete</button>
+      </p>{" "}
+      <br />
+      <p>
+        {" "}
+        Contact <button className="ms-10 bg-blue-500 rounded">Block</button>
+        <button className="ms-4 bg-blue-500 rounded">Delete</button>
+      </p>{" "}
+      <br />
+    <div className="modal-action">
+      <form method="dialog">
+        {/* if there is a button in form, it will close the modal */}
+        <button className="btn bg-blue-500 rounded">Close</button>
+      </form>
+    </div>
+  </div>
+</dialog>
                   </div>
                 </div> 
               </div>
@@ -61,8 +89,12 @@ const Profile =() => {
                 <p>Email: riadh@example.com <button className='ms-6 bg-blue-500 rounded'>Modify</button></p><br />
                 <p>Sexe: Men <button className='ms-36 bg-blue-500 rounded'>Modify</button></p><br />
                 <p>Téléphone: 1234567890 <button className='ms-12 bg-blue-500 rounded'>Modify</button></p>
+              <br  />
+            <hr className="border-black"/>
+              <br />
+              <h1 className='text-xl'>Pictures</h1>
               </div>
-              <div className="sidebar w-full md:w-1/2 lg:w-2/4 bg-purple-200 p-4 rounded ml-2 mt-4 md:mt-0 post">
+              <div className=" w-full md:w-1/2 lg:w-2/4 bg-purple-200 p-4 rounded ml-2 mt-4 md:mt-0 post">
                 {posts.map(post => (
                   <div key={post.id}>
                     <img src={post.picture} alt="Post" />
@@ -70,9 +102,12 @@ const Profile =() => {
                   </div>
                 ))}
               </div>
+             
             </div>
+            
           </div>
         </div>
+        
       </>
   );
 }

@@ -13,15 +13,23 @@ const Profile =() => {
 
 
     useEffect(() => {
-        fetch('http://localhost:4900/profile/:profileId/posts')
-            .then(response => response.json())
-            .then(data => setPosts(data));
-    }, []);
+      fetch('http://localhost:4900/profile/posts')
+          .then(response => {
+              if (!response.ok) {
+                  throw new Error(`HTTP error! status: ${response.status}`);
+              }
+              return response.json();
+          })
+          .then(data => setPosts(data))
+          .catch(error => {
+              console.log('Fetch error: ', error);
+          });
+  }, []);
 
     return ( 
       <>
       
-        <div className='h-screen relative pb-2  justify-center items-center bg-gradient-to-r from-purple-400 via-pink-500 to-red-500'>
+        <div className=' relative pb-2  justify-center items-center bg-gradient-to-r from-purple-400 via-pink-500 to-red-500'>
           <div className='flex flex-col pb-5'>
             <div className='relative flex flex-col mb-7'>
               <div className='flex flex-col justify-center items-center'>
@@ -83,7 +91,7 @@ const Profile =() => {
               </div>
             </div>
             <div className='flex flex-row flex-wrap text-center justify-center'>
-              <div className="sidebar w-full md:w-1/2 lg:w-1/4 bg-purple-200 p-4 rounded ml-2">
+              <div className="sidebar w-full md:w-1/2 lg:w-1/4 bg-purple-200 p-4 rounded mr-2 ml-2">
                 <h2 className='text-xl'>Personal Information</h2><br />
                 <p>Username: Riadh Trabelsi <button className='ms-10 bg-blue-500 rounded'>Modify</button></p> <br />
                 <p>Email: riadh@example.com <button className='ms-6 bg-blue-500 rounded'>Modify</button></p><br />
@@ -94,14 +102,17 @@ const Profile =() => {
               <br />
               <h1 className='text-xl'>Pictures</h1>
               </div>
-              <div className=" w-full md:w-1/2 lg:w-2/4 bg-purple-200 p-4 rounded ml-2 mt-4 md:mt-0 post">
-                {posts.map(post => (
-                  <div key={post.id}>
-                    <img src={post.picture} alt="Post" />
-                    <p>{post.description}</p>
-                  </div>
-                ))}
-              </div>
+              <div className="w-full h-screen md:w-1/2 lg:w-2/4 bg-purple-200 p-4 rounded ml-2 mr-2 mt-4 md:mt-0 post">
+        <div>
+            {posts.map(post => (
+                <div key={post.id}> {/* Assurez-vous que chaque post a une propriété 'id' unique */}
+                    <h3>{post.description}</h3>
+                    <p>{post.content}</p>
+                    {/* Ajoutez d'autres éléments à afficher si nécessaire */}
+                </div>
+            ))}
+        </div>
+    </div>
              
             </div>
             

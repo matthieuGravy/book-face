@@ -119,7 +119,7 @@ class Home extends Component {
         </h1>
 
         <button
-          className={` animate-pulse fixed top-20 right-8 p-4 text-white bg-fuchsia-500 rounded-full text-sm md:text-base ${isSidebarOpen ? 'opacity-40' : 'opacity-100'}`}
+          className={`hover:animate-spin fixed top-20 right-8 p-4 text-white bg-fuchsia-500 rounded-full text-sm md:text-base ${isSidebarOpen ? 'bg-opacity-20' : 'bg-opacity-30'}`}
           onClick={this.handleToggleSidebar}
         >
           {isSidebarOpen ? 'Fermer' : 'Menu'}
@@ -171,14 +171,15 @@ class Home extends Component {
 
         <div className="mt-12 mb-4 w-full md:w-1/2 mx-auto bg-fuchsia-900 rounded" style={{ boxShadow: '0px 0px 10px rgba(255, 255, 255, 0.7)' }}>
           <div className="flex flex-col mb-4">
-            <label htmlFor="newPostContent" className="text-lg mr-2">
+            <label htmlFor="newPostContent" className="text-lg mr-2 ">
               NOUVEAU POST :
             </label>
             <textarea
               id="newPostContent"
               value={newPostContent}
               onChange={(e) => this.handleNewPostChange(e, 'newPostContent')}
-              className="p-2 border border-white rounded text-black bg-gray-200 mb-4 w-full"
+              className="w-3/4 p-2 border border-white rounded text-black bg-gray-200 mb-4 w-full flex justify-center items-center"
+              
             />
           </div>
 

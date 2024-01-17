@@ -4,9 +4,20 @@ class Post extends Component {
   render() {
     const { title, content, image, onDelete } = this.props;
     return (
-      <div className="bg-white p-4 mb-4 shadow-md mx-auto md:w-70" style={{ borderRadius: '10px' }}>
-        <div className="flex justify-between items-center mb-2">
-          <h2 className="text-xl font-bold w-400">{title}</h2>
+      <div className="bg-white p-4 mb-4 shadow-md mx-auto md:w-1/2 lg:w-3/5" style={{ borderRadius: '10px' }}>
+        <div className="flex flex-wrap items-center mb-2">
+          {image && (
+            <img
+              src={URL.createObjectURL(image)}
+              alt="Post"
+              className="mb-2 w-1/5 md:w-1/4 lg:w-1/6 rounded"
+              style={{ maxWidth: '100%', flexShrink: 0 }}
+            />
+          )}
+          <div className="flex-grow ml-4">
+            <h2 className="text-xl font-bold">{title}</h2>
+            <p className="text-gray-600">{content}</p>
+          </div>
           <button
             className="bg-fuchsia-900 text-white px-2 py-1 rounded-md text-xs md:text-sm"
             onClick={onDelete}
@@ -14,8 +25,6 @@ class Post extends Component {
             Supprimer
           </button>
         </div>
-        {image && <img src={URL.createObjectURL(image)} alt="Post" className="mb-2 w-full rounded" />}
-        <p className="text-gray-600">{content}</p>
       </div>
     );
   }
@@ -27,11 +36,11 @@ class Home extends Component {
     this.state = {
       selectedCategory: 'Tous',
       posts: [
-        { id: 1, title: 'Vacances à la plage', content: 'Hello', category: 'vacances' },
-        { id: 2, title: 'Recette de cuisine', content: 'Miam', category: 'cuisine' },
-        { id: 3, title: 'Famille heureuse', content: 'Coucou', category: 'famille' },
-        { id: 4, title: 'Entraînement sportif', content: 'Youpie', category: 'sport' },
-        { id: 5, title: 'Animaux adorables', content: 'Wouf-Wouf', category: 'animaux' },
+        { id: 1, title: 'Vacances à la plage', content: <strong>'Hello'</strong>, category: 'vacances' },
+        { id: 2, title: 'Recette de cuisine', content: <strong>'Miam'</strong>, category: 'cuisine' },
+        { id: 3, title: 'Famille heureuse', content: <strong>'Coucou'</strong>, category: 'famille' },
+        { id: 4, title: 'Entraînement sportif', content: <strong>'Youpie'</strong>, category: 'sport' },
+        { id: 5, title: 'Animaux adorables', content: <strong>'Wouf-Wouf'</strong>, category: 'animaux' },
       ],
       newPostContent: '',
       newPostCategory: 'vacances',
@@ -44,7 +53,7 @@ class Home extends Component {
         { id: 3, name: 'Pressy' },
         { id: 4, name: 'Mat' },
         { id: 5, name: 'Joseph' },
-        { id: 6, name: 'Jean-Alphonse' },
+        { id: 6, name: 'Alphonse' },
       ],
     };
   }
@@ -105,12 +114,12 @@ class Home extends Component {
 
     return (
       <div className="bg-black text-white p-8 relative">
-        <h1 className="text-5xl text-center text-white-500 font-bold mb-6" style={{ textShadow: '2px 2px 4px rgba(255, 255, 255, 0.7)', border: '2px solid black' }}>
+        <h1 className="text-5xl text-center text-white-500 font-bold mb-6 animate-bounce text-4xl text-center" style={{ textShadow: '2px 2px 4px rgba(255, 255, 255, 0.7)', border: '2px solid black' }}>
           Home page
         </h1>
 
         <button
-          className={`fixed top-20 right-8 p-4 text-white bg-fuchsia-500 rounded-full text-sm md:text-base ${isSidebarOpen ? 'opacity-40' : 'opacity-100'}`}
+          className={` animate-pulse fixed top-20 right-8 p-4 text-white bg-fuchsia-500 rounded-full text-sm md:text-base ${isSidebarOpen ? 'opacity-40' : 'opacity-100'}`}
           onClick={this.handleToggleSidebar}
         >
           {isSidebarOpen ? 'Fermer' : 'Menu'}

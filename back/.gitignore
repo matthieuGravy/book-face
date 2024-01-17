@@ -47,3 +47,6 @@ ehthumbs.db
 .DS_Store
 Desktop.ini
 Thumbs.db
+
+build/
+

@@ -63,6 +63,7 @@ const Signup = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               type="text"
+              
             />
             <input
               id="password"

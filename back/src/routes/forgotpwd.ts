@@ -18,6 +18,7 @@ router.post("/send", async (req: Request, res: Response) => {
   }
 });
 
+//http://localhost:4900/forgot
 // modifier le mot de passe de l'utilisateur
 router.post("/", async (req: Request, res: Response) => {
   const { email, password, newPassword } = req.body;

@@ -8,7 +8,9 @@ import React from "react";
 import Profile from "./components/Profile";
 import PasswordRecovery from "./components/PasswordRecovery";
 import Home from "./components/Home";
+
 import Landing from "./components/Landing";
+
 const App = () => {
   return (
     <Router>
@@ -20,6 +22,7 @@ const App = () => {
         <Route path="Login" element={<Login />} />
         <Route path="PasswordRecovery" element={<PasswordRecovery />} />
         <Route path="home" element={<Home />} />
+
       </Routes>
       <Footer />
     </Router>

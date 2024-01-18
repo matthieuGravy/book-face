@@ -9,6 +9,7 @@ import authRoutes from "./routes/auth";
 import logoutRoutes from "./routes/logout";
 import profileRoutes from "./routes/profile";
 import wallRoutes from "./routes/wall";
+import forgotpwdRoutes from "./routes/forgotpwd";
 
 const app: Application = express();
 
@@ -62,6 +63,7 @@ app.use("/login", authRoutes);
 app.use("/logout", logoutRoutes);
 app.use("/profile", profileRoutes);
 app.use("/wall", wallRoutes);
+app.use("/forgot", forgotpwdRoutes);
 
 const port = process.env.PORT || 4900;
 

@@ -6,7 +6,6 @@ const authService = new AuthService();
 
 router.post("/", async (req: Request, res: Response) => {
   const { email, password } = req.body;
-
   try {
     const user = await authService.login(email, password);
     if (user) {

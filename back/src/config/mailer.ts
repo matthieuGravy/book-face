@@ -43,7 +43,7 @@ async function sendWelcomeEmail(email: string) {
   }
 }
 
-async function forgotPasssword(email: string) {
+async function sendforgot(email: string) {
   try {
     const transporter = nodemailer.createTransport({
       service: "gmail",
@@ -60,7 +60,8 @@ async function forgotPasssword(email: string) {
         <mj-section>
           <mj-column>
             <mj-text>
-              Forgot password !
+              Voici le liens pour réinitialiser votre mot de passe :
+              <a href="http://localhost:3900/reset-password">Cliquez ici</a>
             </mj-text>
           </mj-column>
         </mj-section>
@@ -83,4 +84,4 @@ async function forgotPasssword(email: string) {
   }
 }
 
-export { sendWelcomeEmail, forgotPasssword };
+export { sendWelcomeEmail, sendforgot };

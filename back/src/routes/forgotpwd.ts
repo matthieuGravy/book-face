@@ -6,6 +6,7 @@ import { sendforgot } from "../config/mailer";
 const router: Router = express.Router();
 
 // envoyer un mail pour réinitialiser le mot de passe
+//http://localhost:4900/forgot/send
 router.post("/send", async (req: Request, res: Response) => {
   const { email } = req.body;
   const user = await getUserByEmail(email);

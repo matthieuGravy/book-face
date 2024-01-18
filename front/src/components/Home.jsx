@@ -1,5 +1,33 @@
 import React, { Component } from 'react';
 
+const getRandomColor = () => {
+  const colors = ['#FF6F61', '#66B2FF', '#FFD700', '#20B2AA'];
+  const randomIndex = Math.floor(Math.random() * colors.length);
+  return colors[randomIndex];
+};
+
+const getRandomPosition = () => {
+  const positions = ['top-0 left-0', 'top-0 right-0', 'bottom-0 left-0', 'bottom-0 right-0'];
+  const randomIndex = Math.floor(Math.random() * positions.length);
+  return positions[randomIndex];
+};
+
+const generateRandomShapes = () => {
+  const shapes = [];
+
+  for (let i = 0; i < 3; i++) {
+    shapes.push(
+      <div
+        key={i}
+        className={`absolute w-16 h-16 ${getRandomPosition()} bg-${getRandomColor()} rounded-full`}
+        style={{ opacity: 0.8 }}
+      ></div>
+    );
+  }
+
+  return shapes;
+};
+
 class Post extends Component {
   render() {
     const { title, content, image, onDelete } = this.props;
@@ -114,57 +142,68 @@ class Home extends Component {
 
     return (
       <div className="bg-gradient-to-r from-slate-100 via-stone-300 to-zink-500 text-black p-8 relative">
+        {generateRandomShapes()}
+
         <h1 className="text-5xl text-center font-bold mb-6 animate-pulse text-4xl text-center" style={{ textShadow: '2px 2px 4px rgba(255, 255, 255, 0.7)' }}>
           Home page
         </h1>
 
-        
+        <div className="fixed top-24 right-0">
+          <button
+            className={`p-4 text-black bg-cyan-300 rounded-md text-sm md:text-base ${isSidebarOpen ? 'bg-opacity-20' : 'bg-opacity-40'} shadow-md`}
+            onClick={this.handleToggleSidebar}
+          >
+            {isSidebarOpen ? 'Fermer' : 'Menu'}
+          </button>
 
-        <div
-          className={`bg-white border  fixed top-24 right-0 h-full bg-black-800 p-4 transition-transform transform 
-          } rounded-l-3xl opacity-75`}
-          style={{ boxShadow: '0px 0px 10px rgba(255, 255, 255, 0.7)', width: '200px ' }} 
-           
-        >
-          <div className="text-black ">
-            <p>
-              <strong>Welcome,</strong> <br /> {username}
-            </p>
-            <br />
-            <br />
-            <br />
-            <p>
-              <strong>Contacts en ligne</strong>
-            </p>{' '}
-            <br />
-            <ul>
-              {onlineContacts.map((contact) => (
-                <li key={contact.id} className="flex items-center">
-                  <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
-                  {contact.name}
-                </li>
-              ))}
-            </ul>
+          <div
+            className={`h-full bg-gradient-to-b from-green-400 to-blue-500 p-4 transition-transform transform ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full'
+              } rounded-l-3xl opacity-75`}
+            style={{ width: '200px' }}
+          >
+            <div className="text-white">
+              <p>
+                <strong>Welcome,</strong> <br /> {username}
+              </p>
+              <br />
+              <br />
+              <br />
+              <p>
+                <strong>Contacts en ligne</strong>
+              </p>{' '}
+              <br />
+              <ul>
+                {onlineContacts.map((contact) => (
+                  <li key={contact.id} className="flex items-center">
+                    <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
+                    {contact.name}
+                  </li>
+                ))}
+              </ul>
+            </div>
           </div>
         </div>
-<div classeName="bg-stone-800 border-black w-40">
-        <div className="flex flex-wrap justify-center space-x-2 mb-4 ">
-          {['Tous', 'vacances', 'famille', 'animaux', 'cuisine', 'sport'].map((category) => (
-            <button
-              key={category}
-              className={`px-4 py-2 rounded ${selectedCategory === category ? 'bg-stone-800 text-white' : ' bg-stone-800 text-white'} mb-2 md:mb-0 md:mr-2`}
-              onClick={() => this.handleCategoryChange(category)}
-              style={{
-                boxShadow: '0px 0px 10px rgba(255, 255, 255, 0.7)',
-                fontSize: '1rem',
-              }}
-            >
-              {category.charAt(0).toUpperCase() + category.slice(1)}
-            </button>
-          ))}
+
+
+        <div className="bg-white rounded p-4 mb-4 shadow-md mx-auto md:w-1/2 lg:w-3/5">
+          <div className="flex flex-wrap justify-center space-x-2 mb-4 ">
+            {['Tous', 'vacances', 'famille', 'animaux', 'cuisine', 'sport'].map((category) => (
+              <button
+                key={category}
+                className={`px-4 py-2 rounded ${selectedCategory === category ? 'bg-stone-800 text-white' : ' bg-stone-800 text-white'} mb-2 md:mb-0 md:mr-2`}
+                onClick={() => this.handleCategoryChange(category)}
+                style={{
+                  boxShadow: '0px 0px 10px rgba(255, 255, 255, 0.7)',
+                  fontSize: '1rem',
+                }}
+              >
+                {category.charAt(0).toUpperCase() + category.slice(1)}
+              </button>
+            ))}
+          </div>
         </div>
-</div>
-        <div className="mt-12 mb-4 w-full md:w-1/2 mx-auto bg-white rounded-medium text-black rounded py-5 px-5" style={{ boxShadow: '0px 0px 6px gray' }}>
+
+        <div className="mt-12 mb-4 w-full md:w-1/2 mx-auto bg-gradient-to-b from-green-400 to-blue-500 rounded-medium text-black rounded py-5 px-5" style={{ boxShadow: '0px 0px 10px gray' }}>
           <div className="flex flex-col mb-4">
             <label htmlFor="newPostContent" className="text-lg mr-2 ">
               NOUVEAU POST :
@@ -173,8 +212,8 @@ class Home extends Component {
               id="newPostContent"
               value={newPostContent}
               onChange={(e) => this.handleNewPostChange(e, 'newPostContent')}
-              className="w-3/4 p-2 border border-white rounded text-white  mb-4 w-full flex justify-center items-center"
-              
+              className="w-3/4 p-2 border border-white rounded boxShadow: '0px 0px 10px gray' text-white  mb-4 w-full flex justify-center items-center"
+
             />
           </div>
 

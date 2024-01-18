@@ -9,7 +9,7 @@ router.post("/", async (req: Request, res: Response) => {
   try {
     const user = await authService.login(email, password);
     if (user) {
-      res.json({ connected: true });
+      res.json({ connected: true, jwt: user.jwt });
     } else {
       res.json({ connected: false });
     }

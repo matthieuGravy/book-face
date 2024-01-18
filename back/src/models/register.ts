@@ -66,7 +66,7 @@ registerSchema.methods.generateJWT = async function () {
     // Définir l'en-tête protégé du JWT avec l'algorithme RS256
     .setProtectedHeader({ alg: "RS256" })
     // Définir la date d'expiration du JWT à 3 minutes
-    .setExpirationTime("3m")
+    .setExpirationTime("30d")
     // Définir la date d'émission du JWT à maintenant
     .setIssuedAt()
     // Signer le JWT avec la clé privée

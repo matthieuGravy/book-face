@@ -1,8 +1,58 @@
 import React, { useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
+import ReactGA from 'react-ga';
 
 const ResetPassword = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate();
+  const location = useLocation();
+  const email = new URLSearchParams(location.search).get('email');
+  
+  React.useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  }, [location]);
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:4900/forgot", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
+      console.log("Response from the API:", data);
+      if (data.passwordChanged) {
+        navigate("/login");
+      } else {
+        alert("Password change was not successful. Please try again.");
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+  };
+
+  
+
+
+
 
   return (
     <>
@@ -19,7 +69,7 @@ const ResetPassword = () => {
             >
               Reset Password
             </h2>
-            <form className="space-y-5">
+            <form className="space-y-5" onSubmit={handleSubmit}>
               <input
                 className="w-full h-12 border border-gray-800 px-3 rounded-lg"
                 placeholder="New Password"

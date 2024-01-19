@@ -36,7 +36,7 @@ const Login =() => {
     <>
     <div className="h-screen   flex items-center justify-center bg-gradient-to-r from-slate-100 via-stone-300 to-zink-500">
   <div className="relative">
-    <div className="absolute -top-2 -left-2 -right-2 -bottom-2 rounded-lg" />
+  <div className="absolute -top-2 -left-2 -right-2 -bottom-2 rounded-lg bg-gray-950 shadow-lg animate-pulse" />
     <div
       id="form-container"
       className="bg-white py-16 px-4 rounded-lg shadow-2xl w-80 relative z-10 transform transition duration-500 ease-in-out"
@@ -73,7 +73,7 @@ const Login =() => {
           Forgot Password?
         </Link>
         <hr />
-        <Link  className="text-gray-950 hover:text-blue-800 text-sm" to="/PasswordRecovery" >
+        <Link  className="text-gray-950 hover:text-blue-800 text-sm" to="/Signup" >
                   Don't have an account? Sign Up
                 </Link>
       </form>

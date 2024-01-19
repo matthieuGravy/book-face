@@ -61,7 +61,9 @@ async function sendforgot(email: string) {
           <mj-column>
             <mj-text>
               Voici le liens pour réinitialiser votre mot de passe :
-              <a href="http://localhost:5218/ResetPassword">Cliquez ici</a>
+              <a href="http://localhost:5218/ResetPassword?email=${encodeURIComponent(
+                email
+              )}">Cliquez ici</a>
             </mj-text>
           </mj-column>
         </mj-section>

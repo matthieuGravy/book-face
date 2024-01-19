@@ -148,16 +148,11 @@ class Home extends Component {
           Home page
         </h1>
 
-        <div className="fixed top-24 right-0">
-          <button
-            className={`p-4 text-black bg-cyan-300 rounded-md text-sm md:text-base ${isSidebarOpen ? 'bg-opacity-20' : 'bg-opacity-40'} shadow-md`}
-            onClick={this.handleToggleSidebar}
-          >
-            {isSidebarOpen ? 'Fermer' : 'Menu'}
-          </button>
+        <div className="fixed mt-8 right-0 ">
+          
 
           <div
-            className={`h-full bg-gradient-to-b from-green-400 to-blue-500 p-4 transition-transform transform ${isSidebarOpen ? 'translate-x-0' : 'translate-x-full'
+            className={` bg-gradient-to-b from-green-400 to-blue-500 p-4 '
               } rounded-l-3xl opacity-75`}
             style={{ width: '200px' }}
           >
@@ -185,15 +180,15 @@ class Home extends Component {
         </div>
 
 
-        <div className="bg-white rounded p-4 mb-4 shadow-md mx-auto md:w-1/2 lg:w-3/5">
-          <div className="flex flex-wrap justify-center space-x-2 mb-4 ">
+       
+          <div className="flex flex-wrap justify-center space-x-8 mt-5 mb-4 h-9 boxShadow: '0px 0px 10px gray'">
             {['Tous', 'vacances', 'famille', 'animaux', 'cuisine', 'sport'].map((category) => (
               <button
                 key={category}
-                className={`px-4 py-2 rounded ${selectedCategory === category ? 'bg-stone-800 text-white' : ' bg-stone-800 text-white'} mb-2 md:mb-0 md:mr-2`}
+                className={`px-6 py-3 rounded ${selectedCategory === category ? 'bg-stone-800 text-white' : ' bg-stone-800 text-white'} lg:mb-9 md:mb-0 md:mr-2`}
                 onClick={() => this.handleCategoryChange(category)}
                 style={{
-                  boxShadow: '0px 0px 10px rgba(255, 255, 255, 0.7)',
+                  boxShadow: '4px 4px 10px gray',
                   fontSize: '1rem',
                 }}
               >
@@ -201,7 +196,8 @@ class Home extends Component {
               </button>
             ))}
           </div>
-        </div>
+        
+
 
         <div className="mt-12 mb-4 w-full md:w-1/2 mx-auto bg-gradient-to-b from-green-400 to-blue-500 rounded-medium text-black rounded py-5 px-5" style={{ boxShadow: '0px 0px 10px gray' }}>
           <div className="flex flex-col mb-4">
@@ -212,11 +208,11 @@ class Home extends Component {
               id="newPostContent"
               value={newPostContent}
               onChange={(e) => this.handleNewPostChange(e, 'newPostContent')}
-              className="w-3/4 p-2 border border-white rounded boxShadow: '0px 0px 10px gray' text-white  mb-4 w-full flex justify-center items-center"
+              className="w-3/4 p-2 border border-white rounded boxShadow: '0px 0px 10px gray' text-black  mb-4 w-full flex justify-center items-center"
 
             />
           </div>
-
+<div className="bg-gray">
           <div className="flex items-end mb-4">
             <label htmlFor="newPostImage" className="text-lg mr-2">
               Image :
@@ -250,12 +246,13 @@ class Home extends Component {
             </select>
           </div>
         </div>
-
+</div>
         <button
           className="mx-auto block px-16 py-3 rounded bg-stone-800 text-white mt-10 mb-20 text-sm md:text-base"
           onClick={this.handleNewPostSubmit}
           style={{
-            boxShadow: '0px 0px 10px rgba(255, 255, 255, 0.7)',
+            boxShadow: '0px 0px 10px gray', 
+            fontSize: '1rem',
           }}
         >
           Envoyer Post

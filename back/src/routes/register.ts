@@ -6,6 +6,7 @@ import { sendWelcomeEmail } from "../config/mailer";
 const router: Router = express.Router();
 const registerService = new RegisterService();
 
+//récupérer tous les users
 router.get("/", async (_, res: Response) => {
   try {
     const registers = await registerService.getAllRegisters();

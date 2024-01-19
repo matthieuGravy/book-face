@@ -148,55 +148,52 @@ class Home extends Component {
           Home page
         </h1>
 
-        <div className="fixed mt-8 right-0 ">
-          
+        <div className="fixed mt-8 right-0 lg:block hidden">
+  <div
+    className={`bg-gradient-to-b from-green-400 to-blue-500 p-4 rounded-l-3xl opacity-75`}
+    style={{ width: '200px' }}
+  >
+    <div className="text-white">
+      <p>
+        <strong>Welcome,</strong> <br /> {username}
+      </p>
+      <br />
+      <br />
+      <br />
+      <p>
+        <strong>Contacts en ligne</strong>
+      </p>{' '}
+      <br />
+      <ul>
+        {onlineContacts.map((contact) => (
+          <li key={contact.id} className="flex items-center">
+            <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
+            {contact.name}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</div>
 
-          <div
-            className={` bg-gradient-to-b from-green-400 to-blue-500 p-4 '
-              } rounded-l-3xl opacity-75`}
-            style={{ width: '200px' }}
-          >
-            <div className="text-white">
-              <p>
-                <strong>Welcome,</strong> <br /> {username}
-              </p>
-              <br />
-              <br />
-              <br />
-              <p>
-                <strong>Contacts en ligne</strong>
-              </p>{' '}
-              <br />
-              <ul>
-                {onlineContacts.map((contact) => (
-                  <li key={contact.id} className="flex items-center">
-                    <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
-                    {contact.name}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+
+        <div className="flex flex-wrap justify-center space-x-2 mt-5 mb-4">
+  {['Tous', 'vacances', 'famille', 'animaux', 'cuisine', 'sport'].map((category) => (
+    <button
+      key={category}
+      className={`lg:px-8 lg:py-4 px-4 py-2 rounded ${selectedCategory === category ? 'bg-stone-800 text-white' : ' bg-stone-800 text-white'} mb-2 md:mb-0 md:mr-2`}
+      onClick={() => this.handleCategoryChange(category)}
+      style={{
+        boxShadow: '4px 4px 10px gray',
+        fontSize: '1rem',
+      }}
+    >
+      {category.charAt(0).toUpperCase() + category.slice(1)}
+    </button>
+
+          ))}
         </div>
 
-
-       
-          <div className="flex flex-wrap justify-center space-x-8 mt-5 mb-4 h-9 boxShadow: '0px 0px 10px gray'">
-            {['Tous', 'vacances', 'famille', 'animaux', 'cuisine', 'sport'].map((category) => (
-              <button
-                key={category}
-                className={`px-6 py-3 rounded ${selectedCategory === category ? 'bg-stone-800 text-white' : ' bg-stone-800 text-white'} lg:mb-9 md:mb-0 md:mr-2`}
-                onClick={() => this.handleCategoryChange(category)}
-                style={{
-                  boxShadow: '4px 4px 10px gray',
-                  fontSize: '1rem',
-                }}
-              >
-                {category.charAt(0).toUpperCase() + category.slice(1)}
-              </button>
-            ))}
-          </div>
-        
 
 
         <div className="mt-12 mb-4 w-full md:w-1/2 mx-auto bg-gradient-to-b from-green-400 to-blue-500 rounded-medium text-black rounded py-5 px-5" style={{ boxShadow: '0px 0px 10px gray' }}>
@@ -212,46 +209,46 @@ class Home extends Component {
 
             />
           </div>
-<div className="bg-gray">
-          <div className="flex items-end mb-4">
-            <label htmlFor="newPostImage" className="text-lg mr-2">
-              Image :
-            </label>
-            <input
-              type="file"
-              id="newPostImage"
-              accept="image/*"
-              onChange={this.handleImageChange}
-              className=" rounded text-white bg-stone-800 rounded mb-4"
-              style={{ borderRadius: '8px', padding: '8px' }}
-            />
-          </div>
+          <div className="bg-gray">
+            <div className="flex items-end mb-4">
+              <label htmlFor="newPostImage" className="text-lg mr-2">
+                Image :
+              </label>
+              <input
+                type="file"
+                id="newPostImage"
+                accept="image/*"
+                onChange={this.handleImageChange}
+                className=" rounded text-white bg-stone-800 rounded mb-4"
+                style={{ borderRadius: '8px', padding: '8px' }}
+              />
+            </div>
 
-          <div className="flex items-end">
-            <label htmlFor="newPostCategory" className="text-lg mr-2">
-              Catégorie :
-            </label>
-            <select
-              id="newPostCategory"
-              value={newPostCategory}
-              onChange={(e) => this.handleNewPostChange(e, 'newPostCategory')}
-              className="border border-white rounded text-white bg-stone-800 rounded mb-4"
-              style={{ borderRadius: '8px' }}
-            >
-              <option value="vacances">Vacances</option>
-              <option value="famille">Famille</option>
-              <option value="animaux">Animaux</option>
-              <option value="cuisine">Cuisine</option>
-              <option value="sport">Sport</option>
-            </select>
+            <div className="flex items-end">
+              <label htmlFor="newPostCategory" className="text-lg mr-2">
+                Catégorie :
+              </label>
+              <select
+                id="newPostCategory"
+                value={newPostCategory}
+                onChange={(e) => this.handleNewPostChange(e, 'newPostCategory')}
+                className="border border-white rounded text-white bg-stone-800 rounded mb-4"
+                style={{ borderRadius: '8px' }}
+              >
+                <option value="vacances">Vacances</option>
+                <option value="famille">Famille</option>
+                <option value="animaux">Animaux</option>
+                <option value="cuisine">Cuisine</option>
+                <option value="sport">Sport</option>
+              </select>
+            </div>
           </div>
         </div>
-</div>
         <button
           className="mx-auto block px-16 py-3 rounded bg-stone-800 text-white mt-10 mb-20 text-sm md:text-base"
           onClick={this.handleNewPostSubmit}
           style={{
-            boxShadow: '0px 0px 10px gray', 
+            boxShadow: '0px 0px 10px gray',
             fontSize: '1rem',
           }}
         >

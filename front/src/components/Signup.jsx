@@ -36,11 +36,11 @@ const Signup = () => {
   return (
     <div className="h-screen py-20 flex items-center justify-center bg-gradient-to-r from-slate-100 via-stone-300 to-zink-500">
       <div className="relative">
-        <div className="absolute -top-2 -left-2 -right-2 -bottom-2 rounded-lg  animate-pulse" />
-        <div
-          id="form-container"
-          className="bg-white py-16 px-4 rounded-lg shadow-2xl w-80 relative z-10  ease-in-out"
-        >
+      <div className="absolute -top-2 -left-2 -right-2 -bottom-2 rounded-lg bg-gray-950 shadow-lg animate-pulse" />
+    <div
+      id="form-container"
+      className="bg-white py-16 px-4 rounded-lg shadow-2xl w-80 relative z-10 transform transition duration-500 ease-in-out"
+    >
           <h2
             id="form-title"
             className=" text-3xl font-bold mb-10 text-gray-800"

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMessage,faUserPlus, faUsers } from '@fortawesome/free-solid-svg-icons';
+import { faUserPlus, faUsers } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -156,7 +156,7 @@ const Profile =() => {
     
   
   </div>
-  <figure><img src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" /></figure>
+  <figure><img src="https://images.unsplash.com/photo-1682687219640-b3f11f4b7234?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Shoes" /></figure>
 </div>
 <hr className='my-1' />
 <div className="card w-full bg-base-100 shadow-xl">
@@ -169,7 +169,7 @@ const Profile =() => {
   )}
     
   </div>
-  <figure><img src="https://daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.jpg" alt="Shoes" /></figure>
+  <figure className='max-h-96'><img src="https://images.unsplash.com/photo-1444491741275-3747c53c99b4?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Shoes" /></figure>
 </div>
     </div>
              

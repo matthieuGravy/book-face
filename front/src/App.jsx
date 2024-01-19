@@ -9,6 +9,7 @@ import PasswordRecovery from "./components/PasswordRecovery";
 import Home from "./components/Home";
 import Landing from "./components/Landing";
 import "./index.css";
+import ResetPassword from './components/ResetPassword';
 
 const App = () => {
   return (
@@ -20,6 +21,7 @@ const App = () => {
         <Route path="Login" element={<><NavBar /><Login /><Footer /></>} />
         <Route path="PasswordRecovery" element={<><NavBar /><PasswordRecovery /><Footer /></>} />
         <Route path="home" element={<><NavBar /><Home /><Footer /></>} />
+        <Route path="ResetPassword" element={<><NavBar /><ResetPassword /><Footer /></>} />
       </Routes>
     </Router>
   );

@@ -1,8 +1,9 @@
 import express, { Router, Request, Response } from "express";
-import { getUserByEmail, getUserPassword } from "../services/forgotpwd";
+import { getUserByEmail } from "../services/forgotpwd";
 import Register from "../models/register";
 import { sendforgot } from "../config/mailer";
 
+const bcrypt = require("bcrypt");
 const router: Router = express.Router();
 
 // envoyer un mail pour réinitialiser le mot de passe
@@ -20,15 +21,24 @@ router.post("/send", async (req: Request, res: Response) => {
 
 //http://localhost:4900/forgot
 // modifier le mot de passe de l'utilisateur
-router.post("/", async (req: Request, res: Response) => {
-  const { email, password, newPassword } = req.body;
+router.put("/", async (req: Request, res: Response) => {
+  const { email, newPassword, confirmPassword } = req.body;
   const user = await getUserByEmail(email);
-  const userPassword = await getUserPassword(user);
-  if (userPassword === password) {
-    await Register.findByIdAndUpdate(user, { password: newPassword });
-    res.json({ passwordChanged: true });
+  if (!user) {
+    return res.status(404).json({ error: "User not found" });
+  }
+  console.log(user);
+  if (newPassword === confirmPassword) {
+    const hashedPassword = await bcrypt.hash(newPassword, 10); // Remplacez 10 par le nombre de tours de hachage que vous utilisez
+    await Register.findByIdAndUpdate(user._id, {
+      hashedPassword: hashedPassword,
+    });
+    return res.json({ passwordChanged: true });
   } else {
-    res.json({ passwordChanged: false });
+    return res.json({
+      passwordChanged: false,
+      error: "Confirmation password does not match",
+    });
   }
 });
 

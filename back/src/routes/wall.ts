@@ -3,13 +3,12 @@ import PublicationService from "../services/publications";
 
 const router = express.Router();
 // récupèrer toutes les publications
-// erreur n'affiche pas les publications si pas de nouvelles publications ajoutées
 router.get("/", async (_req, res) => {
   try {
     const publicationService = new PublicationService();
-    console.log("PublicationService", publicationService); // Ajout d'un log ici
-    const posts = await publicationService.getAllPosts(); // Utilisez publicationService, pas PublicationService
-    console.log("Posts", posts); // Ajout d'un log ici
+    console.log("PublicationService", publicationService);
+    const posts = await publicationService.getAllPosts();
+    console.log("Posts", posts);
     res.json(posts);
   } catch (error) {
     if (error instanceof Error) {

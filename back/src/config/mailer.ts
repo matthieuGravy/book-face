@@ -9,7 +9,7 @@ async function sendWelcomeEmail(email: string) {
       service: "gmail",
       auth: {
         user: process.env.MAIL_USER,
-        pass: process.env.MAIL_PASS, // Remplacez par le mot de passe d'application généré
+        pass: process.env.MAIL_PASS,
       },
     });
 
@@ -33,7 +33,7 @@ async function sendWelcomeEmail(email: string) {
       from: process.env.MAIL_USER,
       to: email,
       subject: "Welcome vibes",
-      html: htmlOutput.html, // Utilisez le HTML généré par MJML
+      html: htmlOutput.html, // Utiliser le HTML généré par MJML
     };
 
     const info = await transporter.sendMail(mailOptions);
@@ -49,7 +49,7 @@ async function sendforgot(email: string) {
       service: "gmail",
       auth: {
         user: process.env.MAIL_USER,
-        pass: process.env.MAIL_PASS, // Remplacez par le mot de passe d'application généré
+        pass: process.env.MAIL_PASS,
       },
     });
 
@@ -61,7 +61,7 @@ async function sendforgot(email: string) {
           <mj-column>
             <mj-text>
               Voici le liens pour réinitialiser votre mot de passe :
-              <a href="http://localhost:3900/reset-password">Cliquez ici</a>
+              <a href="http://localhost:5218/ResetPassword">Cliquez ici</a>
             </mj-text>
           </mj-column>
         </mj-section>
@@ -74,7 +74,7 @@ async function sendforgot(email: string) {
       from: process.env.MAIL_USER,
       to: email,
       subject: "Forgot password vibes",
-      html: htmlOutput.html, // Utilisez le HTML généré par MJML
+      html: htmlOutput.html, // Utiliser le HTML généré par MJML
     };
 
     const info = await transporter.sendMail(mailOptions);

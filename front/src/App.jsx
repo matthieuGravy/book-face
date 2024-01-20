@@ -12,15 +12,19 @@ import "./index.css";
 import ResetPassword from './components/ResetPassword';
 
 const App = () => {
+  const [isAuthenticated, setIsAuthenticated] = React.useState(true);
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+  };
   return (
     <Router>
       <Routes>
         <Route path="/" element={<><Landing /></>} />
         <Route path="Signup" element={<><NavBar /><Signup /><Footer /></>} />
-        <Route path="Profile" element={<><NavBar /><Profile /><Footer /></>} />
+        <Route path="Profile" element={<><NavBar isAuthenticated={isAuthenticated} handleLogout={handleLogout} /><Profile /><Footer /></>} />
         <Route path="Login" element={<><NavBar /><Login /><Footer /></>} />
         <Route path="PasswordRecovery" element={<><NavBar /><PasswordRecovery /><Footer /></>} />
-        <Route path="home" element={<><NavBar /><Home /><Footer /></>} />
+        <Route path="home" element={<><NavBar isAuthenticated={isAuthenticated} handleLogout={handleLogout} /><Home isAuthenticated={isAuthenticated} /><Footer /></>} />
         <Route path="ResetPassword" element={<><NavBar /><ResetPassword /><Footer /></>} />
       </Routes>
     </Router>

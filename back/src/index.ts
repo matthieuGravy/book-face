@@ -9,7 +9,7 @@ import logoutRoutes from "./routes/logout";
 import profileRoutes from "./routes/profile";
 import wallRoutes from "./routes/wall";
 import forgotpwdRoutes from "./routes/forgotpwd";
-import authMiddleware from "./middleware/authMiddleware";
+//import authMiddleware from "./middleware/authMiddleware";
 
 const app: Application = express();
 
@@ -64,7 +64,7 @@ app.use("/logout", logoutRoutes);
 app.use("/forgot", forgotpwdRoutes);
 
 // Appliquer le middleware d'authentification avant les routes qui nécessitent une authentification
-app.use(authMiddleware);
+//app.use(authMiddleware);
 
 // Les routes qui nécessitent une authentification
 app.use("/profile", profileRoutes);

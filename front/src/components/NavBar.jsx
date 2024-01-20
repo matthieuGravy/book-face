@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const NavBar =() => {
+const NavBar = ({ isAuthenticated, handleLogout }) => {
     return (
         
        
@@ -38,9 +38,13 @@ const NavBar =() => {
                 </Link>
                 </li>
         
-                <li>  <Link to="/Login">
-                Login
-                </Link></li>
+                <li>  
+                {isAuthenticated ? (
+        <Link to="/login" onClick={handleLogout}>Logout</Link>
+      ) : (
+        <Link to="/login">Login</Link>
+      )}
+                </li>
         <li>  <Link to="/Signup">
                   Don't have an account? Sign Up
                 </Link></li>

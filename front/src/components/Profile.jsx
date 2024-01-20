@@ -31,10 +31,10 @@ const Profile =() => {
         <div className=' relative pb-2  justify-center items-center bg-gradient-to-r from-slate-100 via-stone-300 to-zink-500'>
           <div className='flex flex-col pb-5'>
             <div className='relative flex flex-col mb-7'>
-              <div className='flex flex-col justify-center items-center'>
+              <div className='flex flex-col lg:w-4/5 md:w-1/2 items-center flex-wrap text-center justify-center bg-slate-100 mx-auto'>
                
-                <div className='profileInfo w-4/5mt-24 h-60  flex flex-col items-center justify-center'>
-                  <img className='rounded-full w-36 h-36  shadow-xl object-cover '
+                <div className='profileInfo w-4/5 mt-20 h-60 mb-10 flex flex-col items-center justify-center'>
+                  <img className='rounded-full w-60 h-60  shadow-xl object-cover '
                     src="https://images.unsplash.com/photo-1505033575518-a36ea2ef75ae?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aW1hZ2UlMjBwcm9maWxlfGVufDB8fDB8fHww" alt="user-pic" />
                   <div className='userName'>
                     <h3 className='text-xl pt-4'>Maria Bianchi</h3>
@@ -150,16 +150,16 @@ const Profile =() => {
   {posts[1] && (
     <div key={posts[1].id}>
         <h3>{posts[1].description}</h3>
-        <p>{posts[1].content}</p>
+        <p>{posts[1].picture}</p>
     </div>
   )}
     
-  
+  <figure className='rounded max-h-80 '><img src="https://images.unsplash.com/photo-1682687219640-b3f11f4b7234?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Shoes" /></figure>
   </div>
-  <figure><img src="https://images.unsplash.com/photo-1682687219640-b3f11f4b7234?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Shoes" /></figure>
+  
 </div>
 <hr className='my-1' />
-<div className="card w-full bg-base-100 shadow-xl">
+<div className="card  bg-base-100 shadow-xl">
   <div className="card-body">
   {posts[0] && (
     <div key={posts[0].id}>
@@ -167,9 +167,9 @@ const Profile =() => {
         <p>{posts[0].content}</p>
     </div>
   )}
-    
+     <figure className='max-h-80 rounded'><img src="https://images.unsplash.com/photo-1444491741275-3747c53c99b4?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Shoes" /></figure>
   </div>
-  <figure className='max-h-96'><img src="https://images.unsplash.com/photo-1444491741275-3747c53c99b4?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Shoes" /></figure>
+ 
 </div>
     </div>
              

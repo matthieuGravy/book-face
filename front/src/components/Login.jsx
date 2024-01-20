@@ -25,6 +25,7 @@ const Login =() => {
     // Vous pouvez également vérifier le statut de la réponse pour voir si la requête a réussi
     if (data.connected) {
       console.log('Login successful');
+      localStorage.setItem('jwt', data.jwt);
       navigate('/home');
     } else {
       console.log('Login failed');

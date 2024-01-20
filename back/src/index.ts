@@ -9,6 +9,7 @@ import logoutRoutes from "./routes/logout";
 import profileRoutes from "./routes/profile";
 import wallRoutes from "./routes/wall";
 import forgotpwdRoutes from "./routes/forgotpwd";
+import authMiddleware from "./middleware/authMiddleware";
 
 const app: Application = express();
 
@@ -56,13 +57,18 @@ app.use(express.urlencoded({ extended: true }));
 
 connectDB();
 
-// routes pour data front
+// Les routes qui ne nécessitent pas d'authentification
 app.use("/register", registerRoutes);
 app.use("/login", authRoutes);
 app.use("/logout", logoutRoutes);
+app.use("/forgot", forgotpwdRoutes);
+
+// Appliquer le middleware d'authentification avant les routes qui nécessitent une authentification
+app.use(authMiddleware);
+
+// Les routes qui nécessitent une authentification
 app.use("/profile", profileRoutes);
 app.use("/wall", wallRoutes);
-app.use("/forgot", forgotpwdRoutes);
 
 const port = process.env.PORT || 4900;
 

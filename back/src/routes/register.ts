@@ -28,7 +28,7 @@ router.delete("/:id", async (req: Request, res: Response) => {
   }
 });
 
-//modifier un user
+//recupèrer un user
 router.get("/:id/", async (req: Request, res: Response) => {
   const { id } = req.params;
   try {

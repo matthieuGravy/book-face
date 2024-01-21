@@ -15,6 +15,7 @@ router.post("/", async (req: Request, res: Response) => {
         //sameSite: "strict", // Décommenter en https
       });
       res.json({ connected: true, jwt: user.jwt });
+      console.log(user.jwt);
     } else {
       res.json({ connected: false });
     }

@@ -1,8 +1,8 @@
-
+// Login.jsx
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Login =() => {
+const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
@@ -17,22 +17,19 @@ const Login =() => {
       },
       body: JSON.stringify({ email, password }),
     });
-    
 
     const data = await response.json();
-    console.log(data); // Ajout du console.log ici
 
-    // Vous pouvez également vérifier le statut de la réponse pour voir si la requête a réussi
     if (data.connected) {
       console.log('Login successful');
       localStorage.setItem('jwt', data.jwt);
+      onLogin();
       navigate('/home');
     } else {
       console.log('Login failed');
     }
-
-    // Handle response here
   };
+
     return ( 
     <>
     <div className="h-screen   flex items-center justify-center bg-gradient-to-r from-slate-100 via-stone-300 to-zink-500">

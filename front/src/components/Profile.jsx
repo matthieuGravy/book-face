@@ -31,21 +31,21 @@ const Profile =() => {
         <div className=' relative pb-2  justify-center items-center bg-gradient-to-r from-slate-100 via-stone-300 to-zink-500'>
           <div className='flex flex-col pb-5'>
             <div className='relative flex flex-col mb-7'>
-              <div className='flex flex-col lg:w-4/5 md:w-1/2 items-center flex-wrap text-center justify-center bg-slate-100 mx-auto'>
-               
+              <div className='flex flex-col lg:w-3/4 md:w-1/2 items-center flex-wrap text-center justify-center bg-slate-100 mx-auto' style={{backgroundImage: "url('https://img.freepik.com/vecteurs-libre/fond-blanc-gris-brillant-lignes-ondulees_1017-25101.jpg')"}}>
+              
                 <div className='profileInfo w-4/5 mt-20 h-60 mb-10 flex flex-col items-center justify-center'>
-                  <img className='rounded-full w-60 h-60  shadow-xl object-cover '
+                  <img className='rounded-full w-52 h-52  shadow-xl object-cover '
                     src="https://images.unsplash.com/photo-1505033575518-a36ea2ef75ae?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8aW1hZ2UlMjBwcm9maWxlfGVufDB8fDB8fHww" alt="user-pic" />
                   <div className='userName'>
-                    <h3 className='text-xl pt-4'>Maria Bianchi</h3>
+                    <h3 className='  text-2xl font-serif'>Maria Bianchi</h3>
                   </div>
-                  <div className='profileButton pb-6'>
-                 
+                  <div className='profileButton pb-10'>
+              
                     <button className='bg-gray-950  rounded btn text-gray-200' >
                       <FontAwesomeIcon icon={faUserPlus} /> 
                     follow
                     </button>
-                    <button className="btn bg-gray-950 text-gray-200 rounded mr-4" onClick={()=>document.getElementById('my_modal_1').showModal()}> <FontAwesomeIcon icon={faUsers}/> contacts</button>
+                    <button className="btn bg-gray-950 text-gray-200 rounded " onClick={()=>document.getElementById('my_modal_1').showModal()}> <FontAwesomeIcon icon={faUsers}/> contacts</button>
 <dialog id="my_modal_1" className="modal ">
   <div className="modal-box bg-gray-200">
   <div className=" text-gray-200">Contacts</div>
@@ -88,9 +88,9 @@ const Profile =() => {
               </div>
             </div>
             <div className='flex flex-row flex-wrap text-center justify-center'>
-              <div className="sidebar w-full md:w-1/2 lg:w-1/4 bg-slate-50 p-4 rounded mr-2 ml-2">
-                <h2 className='text-xl'>Personal Information</h2><br />
-                <p>Username: Maria Bianchi </p> <br />
+              <div className="sidebar w-full md:w-1/2 lg:w-1/4 bg-slate-100 p-4 rounded mr-2 ml-2">
+                <h2 className='text-3xl font-serif'>Personal Information</h2><br />
+                <p><span>Username: </span>Maria Bianchi </p> <br />
                 <p>Email:maria@example.com </p><br />
                 <p>Sexe: woman</p><br />
                 <p>Téléphone: 1234567890 </p>
@@ -142,14 +142,20 @@ const Profile =() => {
 
 </dialog>
               <br /><br />  <hr className="border-black"/>  <br />
-              <h1 className='text-xl'>Pictures</h1>
-              </div>
+              <h1 className='text-3xl font-serif'>Pictures</h1>
+             
+              <img className='rounded' src="https://cdn.pixabay.com/photo/2023/12/19/21/53/trees-8458467_1280.jpg" alt="a" /> <br />
+
+              <img className='rounded' src="https://cdn.pixabay.com/photo/2016/11/29/04/19/beach-1867285_1280.jpg" alt="a" />
+              <br />
+              <img className='rounded' src="https://cdn.pixabay.com/photo/2023/10/01/14/40/dog-8287533_1280.jpg" alt="a" />
+             </div>
               <div className="w-full  md:w-1/2 lg:w-2/4 bg-slate-50 p-4 rounded ml-2 mr-2 mt-4 md:mt-0 post">
               <div className="card w-full  bg-base-100 shadow-xl">
   <div className="card-body">
   {posts[1] && (
     <div key={posts[1].id}>
-        <h3>{posts[1].description}</h3>
+        <h3 className='text-xl'>{posts[1].description}</h3>
         <p>{posts[1].picture}</p>
     </div>
   )}
@@ -163,11 +169,24 @@ const Profile =() => {
   <div className="card-body">
   {posts[0] && (
     <div key={posts[0].id}>
-        <h3>{posts[0].description}</h3>
+        <h3 className='text-xl'>{posts[0].description}</h3>
         <p>{posts[0].content}</p>
     </div>
   )}
-     <figure className='max-h-80 rounded'><img src="https://images.unsplash.com/photo-1444491741275-3747c53c99b4?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Shoes" /></figure>
+     <figure className='max-h-80 rounded'><img src="https://cdn.pixabay.com/photo/2019/05/18/14/42/jogging-4211946_1280.jpg" alt="Shoes" /></figure>
+  </div>
+ 
+</div>
+<hr className='my-1' />
+<div className="card  bg-base-100 shadow-xl">
+  <div className="card-body">
+  {posts[0] && (
+    <div key={posts[2].id}>
+        <h3 className='text-xl'>{posts[2].description}</h3>
+        <p>{posts[2].content}</p>
+    </div>
+  )}
+     <figure className='max-h-80 rounded'><img src="https://cdn.pixabay.com/photo/2013/02/21/19/06/drink-84533_1280.jpg" alt="Shoes" /></figure>
   </div>
  
 </div>

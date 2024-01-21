@@ -114,9 +114,9 @@ class Home extends Component {
 
     return (
       <div className="bg-black text-white p-8 relative">
-        <h1 className="text-xl  text-white-500 font-bold mb-6 animate-bounce text-4xl text-center" style={{ textShadow: '2px 2px 4px rgba(255, 255, 255, 0.7)', border: '2px solid black' }}>
+        <h1 className="  text-white-500 font-bold mb-6 animate-bounce text-4xl text-center" style={{ textShadow: '2px 2px 4px rgba(255, 255, 255, 0.7)', border: '2px solid black' }}>
           Home page 
-        {isAuthenticated ? <div>Vous êtes connecté</div> : <div>Vous n'êtes pas connecté</div>}
+        {this.props.isAuthenticated ? <div>Welcome</div> : <div>Please Login</div>}
         </h1>
 
         <button

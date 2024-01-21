@@ -12,7 +12,10 @@ import "./index.css";
 import ResetPassword from './components/ResetPassword';
 
 const App = () => {
-  const [isAuthenticated, setIsAuthenticated] = React.useState(true);
+  const [isAuthenticated, setIsAuthenticated] = React.useState(() => {
+    const token = localStorage.getItem('jwt');
+    return token != null;
+  });
   const handleLogout = () => {
     setIsAuthenticated(false);
   };
@@ -20,12 +23,12 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<><Landing /></>} />
-        <Route path="Signup" element={<><NavBar /><Signup /><Footer /></>} />
+        <Route path="Signup" element={<><NavBar isAuthenticated={isAuthenticated} handleLogout={handleLogout} /><Signup /><Footer /></>} />
         <Route path="Profile" element={<><NavBar isAuthenticated={isAuthenticated} handleLogout={handleLogout} /><Profile /><Footer /></>} />
-        <Route path="Login" element={<><NavBar /><Login /><Footer /></>} />
-        <Route path="PasswordRecovery" element={<><NavBar /><PasswordRecovery /><Footer /></>} />
+        <Route path="Login" element={<><NavBar handleLogout={handleLogout} /><Login onLogin={() => setIsAuthenticated(true)} /><Footer /></>} />
+        <Route path="PasswordRecovery" element={<><NavBar handleLogout={handleLogout} /><PasswordRecovery /><Footer /></>} />
         <Route path="home" element={<><NavBar isAuthenticated={isAuthenticated} handleLogout={handleLogout} /><Home isAuthenticated={isAuthenticated} /><Footer /></>} />
-        <Route path="ResetPassword" element={<><NavBar /><ResetPassword /><Footer /></>} />
+        <Route path="ResetPassword" element={<><NavBar handleLogout={handleLogout} /><ResetPassword /><Footer /></>} />
       </Routes>
     </Router>
   );

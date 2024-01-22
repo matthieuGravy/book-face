@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
+
 const NavBar = ({ isAuthenticated, handleLogout }) => {
   const navigate = useNavigate();
 
@@ -54,6 +55,7 @@ const NavBar = ({ isAuthenticated, handleLogout }) => {
   )}
 </li>
           </ul>
+
         </div>
       </div>
     </div>

@@ -9,7 +9,7 @@ async function sendWelcomeEmail(email: string) {
       service: "gmail",
       auth: {
         user: process.env.MAIL_USER,
-        pass: process.env.MAIL_PASS, // Remplacez par le mot de passe d'application généré
+        pass: process.env.MAIL_PASS,
       },
     });
 
@@ -33,7 +33,7 @@ async function sendWelcomeEmail(email: string) {
       from: process.env.MAIL_USER,
       to: email,
       subject: "Welcome vibes",
-      html: htmlOutput.html, // Utilisez le HTML généré par MJML
+      html: htmlOutput.html, // Utiliser le HTML généré par MJML
     };
 
     const info = await transporter.sendMail(mailOptions);
@@ -43,13 +43,13 @@ async function sendWelcomeEmail(email: string) {
   }
 }
 
-async function forgotPasssword(email: string) {
+async function sendforgot(email: string) {
   try {
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
         user: process.env.MAIL_USER,
-        pass: process.env.MAIL_PASS, // Remplacez par le mot de passe d'application généré
+        pass: process.env.MAIL_PASS,
       },
     });
 
@@ -60,7 +60,10 @@ async function forgotPasssword(email: string) {
         <mj-section>
           <mj-column>
             <mj-text>
-              Forgot password !
+              Voici le liens pour réinitialiser votre mot de passe :
+              <a href="http://localhost:5218/ResetPassword?email=${encodeURIComponent(
+                email
+              )}">Cliquez ici</a>
             </mj-text>
           </mj-column>
         </mj-section>
@@ -73,7 +76,7 @@ async function forgotPasssword(email: string) {
       from: process.env.MAIL_USER,
       to: email,
       subject: "Forgot password vibes",
-      html: htmlOutput.html, // Utilisez le HTML généré par MJML
+      html: htmlOutput.html, // Utiliser le HTML généré par MJML
     };
 
     const info = await transporter.sendMail(mailOptions);
@@ -83,4 +86,4 @@ async function forgotPasssword(email: string) {
   }
 }
 
-export { sendWelcomeEmail, forgotPasssword };
+export { sendWelcomeEmail, sendforgot };

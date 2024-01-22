@@ -1,8 +1,12 @@
 import express from "express";
 import ProfileService from "../services/profile";
 import PublicationService from "../services/publications";
+import ImageService from "./../services/images";
+import multer from "multer";
 
 const router = express.Router();
+const imageService = new ImageService();
+const upload = multer({ storage: imageService.getStorage() });
 
 router.put("/:userId", async (req, res) => {
   console.log("Received request"); // Ajout d'un log ici
@@ -23,10 +27,15 @@ router.put("/:userId", async (req, res) => {
   }
 });
 
-router.post("/:profileId/post", async (req, res) => {
+router.post("/:profileId/post", upload.single("image"), async (req, res) => {
   try {
     const profileId = req.params.profileId;
     const postData = req.body;
+    if (req.file) {
+      postData.filename = req.file.filename;
+    } else {
+      // Handle the case where no file was uploaded
+    }
     const post = await ProfileService.createPost(profileId, postData);
     res.json(post);
   } catch (error) {

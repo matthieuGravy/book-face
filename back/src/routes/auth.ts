@@ -6,11 +6,15 @@ const authService = new AuthService();
 
 router.post("/", async (req: Request, res: Response) => {
   const { email, password } = req.body;
-
   try {
     const user = await authService.login(email, password);
     if (user) {
-      res.json({ connected: true });
+      res.cookie("jwt", user.jwt, {
+        httpOnly: true,
+        // secure: true, // Décommenter en https
+        //sameSite: "strict", // Décommenter en https
+      });
+      res.json({ connected: true, jwt: user.jwt });
     } else {
       res.json({ connected: false });
     }

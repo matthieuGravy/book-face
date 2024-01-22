@@ -134,18 +134,20 @@ class Home extends Component {
 
   render() {
     const { posts, selectedCategory, newPostContent, newPostCategory, selectedImage, isSidebarOpen, username, onlineContacts } = this.state;
-
+    const { isAuthenticated } = this.props;
     const filteredPosts =
       selectedCategory === 'Tous'
         ? posts
         : posts.filter((post) => post.category.toLowerCase() === selectedCategory.toLowerCase());
 
     return (
+
       <div className="bg-gradient-to-r from-slate-100 via-stone-300 to-zink-500 text-black p-8 relative">
         {generateRandomShapes()}
 
         <h1 className="text-5xl text-center font-bold mb-6 animate-pulse text-4xl text-center" style={{ textShadow: '2px 2px 4px rgba(255, 255, 255, 0.7)' }}>
           Home page
+
         </h1>
 
         <div className="fixed mt-8 right-0 lg:block hidden">

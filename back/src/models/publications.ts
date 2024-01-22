@@ -2,10 +2,12 @@ import mongoose, { Schema, Document } from "mongoose";
 
 export interface IPublication extends Document {
   userId: mongoose.Schema.Types.ObjectId; // Référence au modèle Register IRegister
-  picture: string;
   description: string;
+  categorie: string;
   createdAt: Date;
   updatedAt: Date;
+  hash: string;
+  filename: string;
 }
 
 const publicationSchema = new Schema<IPublication>(
@@ -15,12 +17,32 @@ const publicationSchema = new Schema<IPublication>(
       required: true,
       ref: "Register", // Référence au modèle Register IRegister
     },
-    picture: {
+    description: {
       type: String,
       required: false,
       unique: false,
     },
-    description: {
+    categorie: {
+      type: String,
+      required: true,
+      unique: false,
+    },
+    createdAt: {
+      type: Date,
+      required: false,
+      unique: false,
+    },
+    updatedAt: {
+      type: Date,
+      required: false,
+      unique: false,
+    },
+    filename: {
+      type: String,
+      required: false,
+      unique: false,
+    },
+    hash: {
       type: String,
       required: false,
       unique: false,
